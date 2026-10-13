@@ -1,13 +1,13 @@
 # Founding Teachers 2027 — Application form
 
-Bilingual (IT / EN) application form for the **Founding Teacher** position at Italienska Skolan
+Application form (Italian only) for the **Founding Teacher** position at Italienska Skolan
 Stockholm. Same visual style as the Scuola del Sabato form. Static HTML frontend (GitHub Pages)
 + Google Apps Script backend, the same architecture as `scuola-del-sabato-form`.
 
 | File | Purpose |
 |------|---------|
-| `founding-teachers.html` | The form (HTML + CSS + JS in one file). IT by default, `?lang=en` or the IT/EN toggle for English. |
-| `privacy.html` | Privacy notice (IT/EN), linked from checkbox F2. |
+| `founding-teachers.html` | The form (HTML + CSS + JS in one file). |
+| `privacy.html` | Privacy notice, linked from checkbox F2. |
 | `Code.gs` | Apps Script backend: ID, CV on Drive, KO/FLAG, sheet row, duplicates, emails. **Not** for GitHub Pages. |
 | `logo-italienska-skolan.png` | School logo. |
 
@@ -30,7 +30,7 @@ After any change to `Code.gs`: Deploy → Manage deployments → ✏️ → **Ne
 ## How it works
 
 - **Links per channel:** `founding-teachers.html?src=linkedin` (also `indeed`, `website`, `eures`,
-  any value). No parameter → `diretto`. Add `&lang=en` for the English version.
+  any value). No parameter → `diretto`.
 - **Automatic closing:** Sunday 1 November 2026, 23:59 (Europe/Stockholm), enforced both in the page
   and in `doPost`. After that the page shows the "modulo chiuso" message.
 - **ID:** `FT27-001`, `FT27-002`, … from a persistent counter (deleting rows never reuses an ID).
@@ -42,6 +42,6 @@ After any change to `Code.gs`: Deploy → Manage deployments → ✏️ → **Ne
   Drive folder as `FT27-001 – Cognome Nome – CV.pdf`; the *C4 CV* column links to it. Never attached
   to an email.
 - **Emails:** careers@ gets a notification (name, ID, KO/FLAG, link to the row); the applicant
-  gets the confirmation from careers@ in the language they used, with a copy of their answers.
+  gets the confirmation from careers@, with a copy of their answers.
 - **Sheet columns:** in the order of the spec; B2 has one column group per title (3 × 7),
-  C2 is one cell with one line per position. A *Lingua* column (IT/EN) is added at the end.
+  C2 is one cell with one line per position.

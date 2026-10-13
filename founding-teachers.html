@@ -46,17 +46,10 @@
 
   .ft-wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
 
-  /* Top bar: back link + language toggle */
+  /* Top bar: back link */
   .ft-topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
   .ft-back { color: var(--isk-blue); text-decoration: none; font-size: 14px; font-weight: 600; }
   .ft-back:hover { text-decoration: underline; }
-  .ft-lang { display: inline-flex; border: 1px solid var(--isk-border); border-radius: 999px; background: #fff; padding: 3px; }
-  .ft-lang button {
-    font-family: var(--font-head); font-weight: 600; font-size: 13px; letter-spacing: .03em;
-    border: none; background: transparent; color: var(--isk-muted);
-    padding: 6px 14px; border-radius: 999px; cursor: pointer;
-  }
-  .ft-lang button[aria-pressed="true"] { background: var(--isk-navy); color: #fff; }
 
   /* Header banner */
   .ft-banner {
@@ -236,10 +229,6 @@
 
   <div class="ft-topbar">
     <a class="ft-back" href="https://www.italienskaskolan.se/" data-i18n="back"></a>
-    <div class="ft-lang" role="group" aria-label="Lingua / Language">
-      <button type="button" data-lang="it" aria-pressed="true">IT</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    </div>
   </div>
 
   <!-- HEADER -->
@@ -556,209 +545,131 @@ const FT_CONFIG = {
 };
 
 /* =====================================================================
-   TEXTS — Italian copy is the spec text verbatim ("Domanda visualizzata").
+   TEXTS — the spec text verbatim ("Domanda visualizzata").
    ===================================================================== */
-const I18N = {
-  it: {
-    pageTitle: 'Candidatura – Founding Teacher',
-    back: '← Torna a italienskaskolan.se',
-    title: 'Candidatura – Founding Teacher, docente di scuola primaria',
-    intro: "Per compilare il modulo bastano 15–20 minuti. Tenga pronto il curriculum in italiano in formato PDF. I campi con l'asterisco sono obbligatori.",
-    deadline: '<strong>Scadenza:</strong> domenica 1 novembre 2026, ore 23:59.',
-    closed: "Le candidature per questa selezione sono chiuse. Grazie per l'interesse: le prossime posizioni aperte saranno pubblicate su questa pagina.",
-    secA: 'Parte A – Dati personali',
-    secB: 'Parte B – Requisiti',
-    secC: 'Parte C – Esperienza di insegnamento e curriculum',
-    secD: 'Parte D – Competenze',
-    secE: 'Parte E – Motivazione',
-    secF: 'Parte F – Consenso e invio',
-    a1: 'Nome', a2: 'Cognome', a3: 'Email',
-    a4: 'Telefono (con prefisso internazionale)',
-    a5: 'Città e Paese in cui vive attualmente',
-    a6: 'Profilo LinkedIn',
-    ph_email: 'nome@esempio.com', ph_phone: '+39 …', ph_city: 'Es. Bologna, Italia',
-    ph_cert: 'Es. Cambridge C1 Advanced, 2022', ph_grade: 'Es. 110/110',
-    ph_classes: 'Es. 1ª–3ª',
-    b1: "Possiede una laurea che abilita all'insegnamento nella scuola primaria?",
-    b2: 'Indichi il suo titolo di studio. Può aggiungerne fino a 3, a partire dal più pertinente.',
-    b2_add: '+ Aggiungi un titolo', b2_block: 'Titolo',
-    b2_title: 'Denominazione del titolo', b2_level: 'Livello', b2_uni: 'Università',
-    b2_fac: 'Facoltà o dipartimento', b2_year: 'Anno di conseguimento o previsto',
-    b2_grade: 'Voto finale (facoltativo)',
-    country: 'Paese',
-    b3: "Il primo titolo che ha indicato è riconosciuto come abilitazione all'insegnamento nella scuola primaria nel Paese in cui l'ha conseguito?",
-    b4: 'Il suo livello di italiano',
-    b5: 'Il suo livello di inglese (QCER)',
-    b5_cert: 'Certificazione (nome e anno)',
-    b6: 'Il suo livello di svedese',
-    b7: 'Può iniziare a lavorare a tempo pieno a Stoccolma ad agosto 2027?',
-    b8: 'Ha il diritto di lavorare in Svezia?',
-    c1: 'Anni di esperienza di insegnamento nella scuola primaria (supplenze comprese)',
-    c2: 'I suoi incarichi di insegnamento. Può indicarne fino a 4, a partire dal più recente.',
-    c2_add: '+ Aggiungi un incarico', c2_block: 'Incarico',
-    c2_school: 'Scuola', c2_type: 'Tipo di scuola', c2_role: 'Ruolo', c2_classes: 'Classi',
-    c2_from: 'Dal', c2_to: 'Al', c2_current: 'In corso',
-    c3: 'Ha insegnato in un contesto bilingue, CLIL, internazionale o IB?',
-    c3_text: 'Lo descriva brevemente',
-    c4: 'Carichi il suo curriculum in italiano (PDF, max 2 pagine)',
-    c4_choose: 'Scegli il file', c4_none: 'Nessun file selezionato', c4_hint: 'Solo PDF, max 5 MB.',
-    d1: "Descriva un'attività in cui le sue alunne e i suoi alunni della scuola primaria hanno usato le tecnologie per creare, esplorare o risolvere un problema: classe, strumenti e che cosa hanno prodotto.",
-    d2: 'Qual è la sua esperienza della scuola primaria italiana e delle Indicazioni Nazionali (insegnamento, tirocinio, formazione)?',
-    e1: 'Perché desidera entrare nel team fondatore di Italienska Skolan Stockholm?',
-    e2: "C'è altro che vorrebbe farci sapere?",
-    f1: 'Come ha saputo di questa posizione?',
-    f1_other: 'Specifichi',
-    f2: "Ho letto l'<a href=\"{privacy}\" target=\"_blank\" rel=\"noopener\">informativa sulla privacy</a> e acconsento al trattamento dei miei dati da parte di Italienska Skolan Stockholm per questa selezione.",
-    f3: 'Confermo che le mie risposte sono veritiere. So che la scuola potrà chiedermi copia dei titoli di studio e delle referenze.',
-    f4: 'Potete contattarmi per future posizioni nei prossimi 24 mesi.',
-    submit: 'Invia la candidatura',
-    sending: 'Invio in corso…',
-    remove: '✕ Rimuovi',
-    select: 'Selezioni…', month: 'Mese', year: 'Anno',
-    words: '{n} / {max} parole',
-    confirm1: 'Grazie, abbiamo ricevuto la sua candidatura. Le abbiamo inviato un\'email di conferma con una copia delle risposte.',
-    confirm2: 'Esaminiamo le candidature man mano che arrivano. Se il suo profilo corrisponde a quello che cerchiamo, la contatteremo entro sabato 7 novembre per i passi successivi. Se entro quella data non avrà nostre notizie, significa che in questa occasione non proseguiremo con la sua candidatura.',
-    err_required: 'Questo campo è obbligatorio.',
-    err_email: "Controlli l'indirizzo email: sembra incompleto.",
-    err_pdf: 'Carichi il curriculum in formato PDF.',
-    err_size: 'Il file supera i 5 MB: carichi un PDF più leggero.',
-    err_words: 'La risposta supera il numero massimo di parole.',
-    err_consent: 'Per inviare la candidatura serve la sua conferma.',
-    err_phone: 'Inserisca il numero con il prefisso internazionale (es. +39 …).',
-    err_url: 'Controlli il link: sembra incompleto.',
-    err_form: 'Alcuni campi non sono compilati correttamente: li trova evidenziati in rosso.',
-    err_send: 'Non è stato possibile inviare la candidatura. Riprovi tra qualche minuto; se il problema persiste, scriva a careers@italienskaskolan.se.',
-    yes: 'Sì', no: 'No',
-  },
-  en: {
-    pageTitle: 'Application – Founding Teacher',
-    back: '← Back to italienskaskolan.se',
-    title: 'Application – Founding Teacher, primary school teacher',
-    intro: 'Completing this form takes 15–20 minutes. Please have your CV in Italian ready as a PDF. Fields marked with an asterisk are required.',
-    deadline: '<strong>Deadline:</strong> Sunday 1 November 2026, 23:59 (Stockholm time).',
-    closed: 'Applications for this recruitment are now closed. Thank you for your interest: future openings will be published on this page.',
-    secA: 'Part A – Personal details',
-    secB: 'Part B – Requirements',
-    secC: 'Part C – Teaching experience and CV',
-    secD: 'Part D – Skills',
-    secE: 'Part E – Motivation',
-    secF: 'Part F – Consent and submission',
-    a1: 'First name', a2: 'Last name', a3: 'Email',
-    a4: 'Phone (with international dialling code)',
-    a5: 'City and country where you currently live',
-    a6: 'LinkedIn profile',
-    ph_email: 'name@example.com', ph_phone: '+39 …', ph_city: 'E.g. Bologna, Italy',
-    ph_cert: 'E.g. Cambridge C1 Advanced, 2022', ph_grade: 'E.g. 110/110',
-    ph_classes: 'E.g. Years 1–3',
-    b1: 'Do you hold a degree that qualifies you to teach in primary school?',
-    b2: 'Please list your qualifications. You can add up to 3, starting with the most relevant.',
-    b2_add: '+ Add a qualification', b2_block: 'Qualification',
-    b2_title: 'Name of the qualification', b2_level: 'Level', b2_uni: 'University',
-    b2_fac: 'Faculty or department', b2_year: 'Year obtained or expected',
-    b2_grade: 'Final grade (optional)',
-    country: 'Country',
-    b3: 'Is the first qualification you listed recognised as a primary-school teaching qualification in the country where you obtained it?',
-    b4: 'Your level of Italian',
-    b5: 'Your level of English (CEFR)',
-    b5_cert: 'Certification (name and year)',
-    b6: 'Your level of Swedish',
-    b7: 'Can you start working full-time in Stockholm in August 2027?',
-    b8: 'Do you have the right to work in Sweden?',
-    c1: 'Years of primary-school teaching experience (including supply teaching)',
-    c2: 'Your teaching positions. You can list up to 4, starting with the most recent.',
-    c2_add: '+ Add a position', c2_block: 'Position',
-    c2_school: 'School', c2_type: 'Type of school', c2_role: 'Role', c2_classes: 'Classes / year groups',
-    c2_from: 'From', c2_to: 'To', c2_current: 'Ongoing',
-    c3: 'Have you taught in a bilingual, CLIL, international or IB setting?',
-    c3_text: 'Please describe it briefly',
-    c4: 'Upload your CV in Italian (PDF, max 2 pages)',
-    c4_choose: 'Choose file', c4_none: 'No file selected', c4_hint: 'PDF only, max 5 MB.',
-    d1: 'Describe an activity in which your primary-school pupils used technology to create, explore or solve a problem: the class, the tools and what they produced.',
-    d2: 'What is your experience of the Italian primary school and of the Indicazioni Nazionali (teaching, placement, training)?',
-    e1: 'Why would you like to join the founding team of Italienska Skolan Stockholm?',
-    e2: 'Is there anything else you would like us to know?',
-    f1: 'How did you hear about this position?',
-    f1_other: 'Please specify',
-    f2: 'I have read the <a href="{privacy}" target="_blank" rel="noopener">privacy notice</a> and consent to Italienska Skolan Stockholm processing my data for this recruitment.',
-    f3: 'I confirm that my answers are truthful. I understand that the school may ask me for copies of my qualifications and references.',
-    f4: 'You may contact me about future positions in the next 24 months.',
-    submit: 'Submit application',
-    sending: 'Submitting…',
-    remove: '✕ Remove',
-    select: 'Select…', month: 'Month', year: 'Year',
-    words: '{n} / {max} words',
-    confirm1: 'Thank you, we have received your application. We have sent you a confirmation email with a copy of your answers.',
-    confirm2: 'We review applications as they arrive. If your profile matches what we are looking for, we will contact you by Saturday 7 November about the next steps. If you have not heard from us by then, it means we will not be taking your application further on this occasion.',
-    err_required: 'This field is required.',
-    err_email: 'Please check the email address: it looks incomplete.',
-    err_pdf: 'Please upload your CV as a PDF.',
-    err_size: 'The file is larger than 5 MB: please upload a smaller PDF.',
-    err_words: 'Your answer exceeds the maximum number of words.',
-    err_consent: 'We need your confirmation to submit the application.',
-    err_phone: 'Please include the international dialling code (e.g. +39 …).',
-    err_url: 'Please check the link: it looks incomplete.',
-    err_form: 'Some fields need attention: they are highlighted in red.',
-    err_send: 'We could not submit your application. Please try again in a few minutes; if the problem persists, write to careers@italienskaskolan.se.',
-    yes: 'Yes', no: 'No',
-  },
+const TEXT = {
+  back: '← Torna a italienskaskolan.se',
+  title: 'Candidatura – Founding Teacher, docente di scuola primaria',
+  intro: "Per compilare il modulo bastano 15–20 minuti. Tenga pronto il curriculum in italiano in formato PDF. I campi con l'asterisco sono obbligatori.",
+  deadline: '<strong>Scadenza:</strong> domenica 1 novembre 2026, ore 23:59.',
+  closed: "Le candidature per questa selezione sono chiuse. Grazie per l'interesse: le prossime posizioni aperte saranno pubblicate su questa pagina.",
+  secA: 'Parte A – Dati personali',
+  secB: 'Parte B – Requisiti',
+  secC: 'Parte C – Esperienza di insegnamento e curriculum',
+  secD: 'Parte D – Competenze',
+  secE: 'Parte E – Motivazione',
+  secF: 'Parte F – Consenso e invio',
+  a1: 'Nome', a2: 'Cognome', a3: 'Email',
+  a4: 'Telefono (con prefisso internazionale)',
+  a5: 'Città e Paese in cui vive attualmente',
+  a6: 'Profilo LinkedIn',
+  ph_email: 'nome@esempio.com', ph_phone: '+39 …', ph_city: 'Es. Bologna, Italia',
+  ph_cert: 'Es. Cambridge C1 Advanced, 2022', ph_grade: 'Es. 110/110',
+  ph_classes: 'Es. 1ª–3ª',
+  b1: "Possiede una laurea che abilita all'insegnamento nella scuola primaria?",
+  b2: 'Indichi il suo titolo di studio. Può aggiungerne fino a 3, a partire dal più pertinente.',
+  b2_add: '+ Aggiungi un titolo', b2_block: 'Titolo',
+  b2_title: 'Denominazione del titolo', b2_level: 'Livello', b2_uni: 'Università',
+  b2_fac: 'Facoltà o dipartimento', b2_year: 'Anno di conseguimento o previsto',
+  b2_grade: 'Voto finale (facoltativo)',
+  country: 'Paese',
+  b3: "Il primo titolo che ha indicato è riconosciuto come abilitazione all'insegnamento nella scuola primaria nel Paese in cui l'ha conseguito?",
+  b4: 'Il suo livello di italiano',
+  b5: 'Il suo livello di inglese (QCER)',
+  b5_cert: 'Certificazione (nome e anno)',
+  b6: 'Il suo livello di svedese',
+  b7: 'Può iniziare a lavorare a tempo pieno a Stoccolma ad agosto 2027?',
+  b8: 'Ha il diritto di lavorare in Svezia?',
+  c1: 'Anni di esperienza di insegnamento nella scuola primaria (supplenze comprese)',
+  c2: 'I suoi incarichi di insegnamento. Può indicarne fino a 4, a partire dal più recente.',
+  c2_add: '+ Aggiungi un incarico', c2_block: 'Incarico',
+  c2_school: 'Scuola', c2_type: 'Tipo di scuola', c2_role: 'Ruolo', c2_classes: 'Classi',
+  c2_from: 'Dal', c2_to: 'Al', c2_current: 'In corso',
+  c3: 'Ha insegnato in un contesto bilingue, CLIL, internazionale o IB?',
+  c3_text: 'Lo descriva brevemente',
+  c4: 'Carichi il suo curriculum in italiano (PDF, max 2 pagine)',
+  c4_choose: 'Scegli il file', c4_none: 'Nessun file selezionato', c4_hint: 'Solo PDF, max 5 MB.',
+  d1: "Descriva un'attività in cui le sue alunne e i suoi alunni della scuola primaria hanno usato le tecnologie per creare, esplorare o risolvere un problema: classe, strumenti e che cosa hanno prodotto.",
+  d2: 'Qual è la sua esperienza della scuola primaria italiana e delle Indicazioni Nazionali (insegnamento, tirocinio, formazione)?',
+  e1: 'Perché desidera entrare nel team fondatore di Italienska Skolan Stockholm?',
+  e2: "C'è altro che vorrebbe farci sapere?",
+  f1: 'Come ha saputo di questa posizione?',
+  f1_other: 'Specifichi',
+  f2: "Ho letto l'<a href=\"{privacy}\" target=\"_blank\" rel=\"noopener\">informativa sulla privacy</a> e acconsento al trattamento dei miei dati da parte di Italienska Skolan Stockholm per questa selezione.",
+  f3: 'Confermo che le mie risposte sono veritiere. So che la scuola potrà chiedermi copia dei titoli di studio e delle referenze.',
+  f4: 'Potete contattarmi per future posizioni nei prossimi 24 mesi.',
+  submit: 'Invia la candidatura',
+  sending: 'Invio in corso…',
+  remove: '✕ Rimuovi',
+  select: 'Selezioni…', month: 'Mese', year: 'Anno',
+  words: '{n} / {max} parole',
+  confirm1: 'Grazie, abbiamo ricevuto la sua candidatura. Le abbiamo inviato un\'email di conferma con una copia delle risposte.',
+  confirm2: 'Esaminiamo le candidature man mano che arrivano. Se il suo profilo corrisponde a quello che cerchiamo, la contatteremo entro sabato 7 novembre per i passi successivi. Se entro quella data non avrà nostre notizie, significa che in questa occasione non proseguiremo con la sua candidatura.',
+  err_required: 'Questo campo è obbligatorio.',
+  err_email: "Controlli l'indirizzo email: sembra incompleto.",
+  err_pdf: 'Carichi il curriculum in formato PDF.',
+  err_size: 'Il file supera i 5 MB: carichi un PDF più leggero.',
+  err_words: 'La risposta supera il numero massimo di parole.',
+  err_consent: 'Per inviare la candidatura serve la sua conferma.',
+  err_phone: 'Inserisca il numero con il prefisso internazionale (es. +39 …).',
+  err_url: 'Controlli il link: sembra incompleto.',
+  err_form: 'Alcuni campi non sono compilati correttamente: li trova evidenziati in rosso.',
+  err_send: 'Non è stato possibile inviare la candidatura. Riprovi tra qualche minuto; se il problema persiste, scriva a careers@italienskaskolan.se.',
+  yes: 'Sì', no: 'No',
 };
 
-/* Options. `v` is the canonical value stored in the sheet (the Italian spec label) —
+/* Options. `v` is both the label shown and the value stored in the sheet (the spec label) —
    Code.gs applies the KO / FLAG logic to these exact strings. */
 const OPTS = {
   b1: [
-    { v: 'Sì', en: 'Yes' },
-    { v: 'Mi laureerò prima di luglio 2027', en: 'I will graduate before July 2027' },
-    { v: 'No', en: 'No' },
+    { v: 'Sì' },
+    { v: 'Mi laureerò prima di luglio 2027' },
+    { v: 'No' },
   ],
-  b3: [ { v: 'Sì', en: 'Yes' }, { v: 'Non so', en: "I don't know" }, { v: 'No', en: 'No' } ],
-  b4: [ { v: 'Madrelingua', en: 'Native speaker' }, { v: 'C2' }, { v: 'C1' }, { v: 'B2 o inferiore', en: 'B2 or below' } ],
-  b5: [ { v: 'C2' }, { v: 'C1' }, { v: 'B2' }, { v: 'B1 o inferiore', en: 'B1 or below' } ],
-  b6: [ { v: 'Nessuno', en: 'None' }, { v: 'A1–A2' }, { v: 'B1 o superiore', en: 'B1 or above' }, { v: 'Madrelingua', en: 'Native speaker' } ],
-  b7: [ { v: 'Sì', en: 'Yes' }, { v: 'No', en: 'No' } ],
+  b3: [ { v: 'Sì' }, { v: 'Non so' }, { v: 'No' } ],
+  b4: [ { v: 'Madrelingua' }, { v: 'C2' }, { v: 'C1' }, { v: 'B2 o inferiore' } ],
+  b5: [ { v: 'C2' }, { v: 'C1' }, { v: 'B2' }, { v: 'B1 o inferiore' } ],
+  b6: [ { v: 'Nessuno' }, { v: 'A1–A2' }, { v: 'B1 o superiore' }, { v: 'Madrelingua' } ],
+  b7: [ { v: 'Sì' }, { v: 'No' } ],
   b8: [
-    { v: 'Sì, ho la cittadinanza UE/SEE/svizzera o un permesso svedese con diritto al lavoro',
-      en: 'Yes, I have EU/EEA/Swiss citizenship or a Swedish permit that includes the right to work' },
-    { v: 'No, avrei bisogno di un permesso di lavoro', en: 'No, I would need a work permit' },
+    { v: 'Sì, ho la cittadinanza UE/SEE/svizzera o un permesso svedese con diritto al lavoro' },
+    { v: 'No, avrei bisogno di un permesso di lavoro' },
   ],
-  c1: [ { v: 'Nessuno', en: 'None' }, { v: 'Meno di 1', en: 'Less than 1' }, { v: '1–3' }, { v: '4–7' }, { v: '8 o più', en: '8 or more' } ],
-  c3: [ { v: 'Sì', en: 'Yes' }, { v: 'No', en: 'No' } ],
+  c1: [ { v: 'Nessuno' }, { v: 'Meno di 1' }, { v: '1–3' }, { v: '4–7' }, { v: '8 o più' } ],
+  c3: [ { v: 'Sì' }, { v: 'No' } ],
   f1: [
     { v: 'LinkedIn' }, { v: 'Indeed' },
-    { v: 'Sito della scuola', en: 'School website' },
-    { v: 'Collega o conoscente', en: 'Colleague or acquaintance' },
+    { v: 'Sito della scuola' },
+    { v: 'Collega o conoscente' },
     { v: 'Social media' },
-    { v: 'Altro', en: 'Other' },
+    { v: 'Altro' },
   ],
   b2_level: [
-    { v: 'Laurea magistrale a ciclo unico', en: "Laurea magistrale a ciclo unico (Italian single-cycle master's degree)" },
-    { v: 'Laurea magistrale', en: "Laurea magistrale (Italian master's degree)" },
-    { v: 'Laurea triennale', en: "Laurea triennale (Italian bachelor's degree)" },
+    { v: 'Laurea magistrale a ciclo unico' },
+    { v: 'Laurea magistrale' },
+    { v: 'Laurea triennale' },
     { v: "Master's degree" },
     { v: "Bachelor's degree" },
-    { v: 'Altro', en: 'Other' },
+    { v: 'Altro' },
   ],
   c2_type: [
-    { v: 'Scuola statale italiana', en: 'Italian state school' },
-    { v: 'Scuola paritaria italiana', en: 'Italian state-recognised private school (paritaria)' },
-    { v: "Scuola italiana all'estero", en: 'Italian school abroad' },
-    { v: 'Scuola internazionale', en: 'International school' },
-    { v: 'Altro', en: 'Other' },
+    { v: 'Scuola statale italiana' },
+    { v: 'Scuola paritaria italiana' },
+    { v: "Scuola italiana all'estero" },
+    { v: 'Scuola internazionale' },
+    { v: 'Altro' },
   ],
   c2_role: [
-    { v: 'Insegnante di classe', en: 'Class teacher' },
-    { v: 'Sostegno', en: 'Special-needs support teacher (sostegno)' },
-    { v: 'Insegnante di disciplina', en: 'Subject teacher' },
-    { v: 'Supplente', en: 'Supply teacher' },
+    { v: 'Insegnante di classe' },
+    { v: 'Sostegno' },
+    { v: 'Insegnante di disciplina' },
+    { v: 'Supplente' },
   ],
 };
 
-const MONTHS = {
-  it: ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'],
-  en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-};
+const MONTHS = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
-// ISO 3166-1 alpha-2 codes; names come from Intl.DisplayNames in the current language.
+// ISO 3166-1 alpha-2 codes; Italian names come from Intl.DisplayNames.
 const COUNTRY_CODES = ('AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +
   'CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR ' +
   'GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IQ IR IS IT JE JM JO JP ' +
@@ -769,51 +680,38 @@ const COUNTRY_CODES = ('AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE
 const PINNED_COUNTRIES = ['IT', 'SE'];
 
 /* =====================================================================
-   I18N helpers
+   Text helpers
    ===================================================================== */
-let LANG = initialLang();
-
-function initialLang() {
-  const q = new URLSearchParams(location.search).get('lang');
-  if (q === 'en' || q === 'it') return q;
-  try { const s = sessionStorage.getItem('ftLang'); if (s === 'en' || s === 'it') return s; } catch (e) {}
-  return 'it';
-}
-
 function t(key, vars) {
-  let s = (I18N[LANG] && I18N[LANG][key]) ?? I18N.it[key] ?? key;
+  let s = TEXT[key] ?? key;
   if (vars) Object.keys(vars).forEach((k) => { s = s.split('{' + k + '}').join(vars[k]); });
   return s;
 }
 
-function optLabel(o) { return LANG === 'en' ? (o.en || o.v) : (o.it || o.v); }
-
-const regionNamesCache = {};
-function regionName(code, lang) {
+let regionNames_;
+function regionName(code) {
   try {
-    regionNamesCache[lang] = regionNamesCache[lang] || new Intl.DisplayNames([lang], { type: 'region' });
-    return regionNamesCache[lang].of(code) || code;
+    regionNames_ = regionNames_ || new Intl.DisplayNames(['it'], { type: 'region' });
+    return regionNames_.of(code) || code;
   } catch (e) { return code; }
 }
-
-function privacyHref() { return FT_CONFIG.privacyUrl + '?lang=' + LANG; }
 
 function selectItems(kind) {
   if (kind === 'country') {
     const rest = COUNTRY_CODES.filter((c) => !PINNED_COUNTRIES.includes(c))
-      .map((c) => ({ v: c, label: regionName(c, LANG) }))
-      .sort((a, b) => a.label.localeCompare(b.label, LANG));
-    return PINNED_COUNTRIES.map((c) => ({ v: c, label: regionName(c, LANG) }))
+      .map((c) => ({ v: c, label: regionName(c) }))
+      .sort((a, b) => a.label.localeCompare(b.label, 'it'));
+    return PINNED_COUNTRIES.map((c) => ({ v: c, label: regionName(c) }))
       .concat([{ v: '', label: '──────────', disabled: true }], rest);
   }
-  if (kind === 'month') return MONTHS[LANG].map((m, i) => ({ v: String(i + 1).padStart(2, '0'), label: m }));
+  if (kind === 'month') return MONTHS.map((m, i) => ({ v: String(i + 1).padStart(2, '0'), label: m }));
   if (kind === 'gradYear' || kind === 'workYear') {
     const max = kind === 'gradYear' ? 2030 : new Date().getFullYear() + 1;
     const out = [];
     for (let y = max; y >= 1970; y--) out.push({ v: String(y), label: String(y) });
     return out;
   }
-  return (OPTS[kind] || []).map((o) => ({ v: o.v, label: optLabel(o) }));
+  return (OPTS[kind] || []).map((o) => ({ v: o.v, label: o.v }));
 }
 
 function placeholderFor(kind) {
@@ -852,40 +750,25 @@ function renderRadios() {
       });
     }
     group.querySelectorAll('label').forEach((lab, i) => {
-      lab.querySelector('span').textContent = optLabel(OPTS[name][i]);
+      lab.querySelector('span').textContent = OPTS[name][i].v;
     });
   });
 }
 
-function applyI18n(root) {
+function applyTexts(root) {
   root = root || document;
   root.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.dataset.i18n;
-    el.innerHTML = t(key, { privacy: privacyHref() });
+    el.innerHTML = t(key, { privacy: FT_CONFIG.privacyUrl });
   });
   root.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
   root.querySelectorAll('select[data-opts]').forEach(fillSelect);
   if (root === document) {
-    document.documentElement.lang = LANG;
-    document.title = t('pageTitle');
     renderRadios();
-    document.querySelectorAll('.ft-lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === LANG)));
-    document.querySelectorAll('.ft-error[data-err]').forEach((el) => { if (el.dataset.err) el.textContent = t('err_' + el.dataset.err); });
     document.querySelectorAll('[data-kind="words"]').forEach(updateCounter);
     updateFileName();
   }
 }
-
-function setLang(lang) {
-  LANG = lang;
-  try { sessionStorage.setItem('ftLang', lang); } catch (e) {}
-  const url = new URL(location.href);
-  url.searchParams.set('lang', lang);
-  history.replaceState(null, '', url);
-  applyI18n();
-}
-
-document.querySelectorAll('.ft-lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
 /* =====================================================================
    Field helpers: errors, word counters
@@ -947,7 +830,7 @@ function addBlock(kind) {
   const container = document.getElementById(kind + '-blocks');
   const node = document.getElementById('tpl-' + kind).content.firstElementChild.cloneNode(true);
   container.appendChild(node);
-  applyI18n(node);
+  applyTexts(node);
   node.querySelector('[data-remove]').addEventListener('click', () => { node.remove(); refreshBlocks(kind); });
   if (kind === 'c2') {
     const cur = node.querySelector('[data-k="current"]');
@@ -1128,17 +1011,13 @@ async function looksLikePdf(file) {
   } catch (e) { return isPdfName(file); }
 }
 
-// A copy of the answers in the applicant's language, for the confirmation email.
+// A copy of the answers, for the confirmation email.
 function plain(key) { const d = document.createElement('div'); d.innerHTML = t(key, { privacy: '' }); return d.textContent; }
-function radioLabel(name) {
-  const v = radioValue(name); const o = (OPTS[name] || []).find((x) => x.v === v);
-  return o ? optLabel(o) : v;
-}
-function optLabelFor(kind, v) { const o = (OPTS[kind] || []).find((x) => x.v === v); return o ? optLabel(o) : v; }
+function radioLabel(name) { return radioValue(name); }
 function monthYearLabel(my) {
   if (my === 'in corso') return t('c2_current');
   const [m, y] = my.split('/');
-  return (MONTHS[LANG][(+m) - 1] || m) + ' ' + y;
+  return (MONTHS[(+m) - 1] || m) + ' ' + y;
 }
 
 function buildSummary(b2, c2, cv) {
@@ -1148,15 +1027,15 @@ function buildSummary(b2, c2, cv) {
   add(plain('a4'), val('a4')); add(plain('a5'), val('a5')); add(plain('a6'), val('a6'));
   add(plain('b1'), radioLabel('b1'));
   b2.forEach((x, i) => add(t('b2_block') + ' ' + (i + 1), [
-    x.title, optLabelFor('b2_level', x.level), x.university, x.faculty,
-    regionName(x.countryCode, LANG), x.year, x.grade,
+    x.title, x.level, x.university, x.faculty,
+    regionName(x.countryCode), x.year, x.grade,
   ].filter(Boolean).join(' · ')));
   add(plain('b3'), radioLabel('b3')); add(plain('b4'), radioLabel('b4'));
   add(plain('b5'), radioLabel('b5') + (val('b5_cert') ? ' — ' + val('b5_cert') : ''));
   add(plain('b6'), radioLabel('b6')); add(plain('b7'), radioLabel('b7')); add(plain('b8'), radioLabel('b8'));
   add(plain('c1'), radioLabel('c1'));
   c2.forEach((x, i) => add(t('c2_block') + ' ' + (i + 1), [
-    x.school, regionName(x.countryCode, LANG), optLabelFor('c2_type', x.type), optLabelFor('c2_role', x.role),
+    x.school, regionName(x.countryCode), x.type, x.role,
     x.classes, monthYearLabel(x.from) + ' – ' + monthYearLabel(x.to),
   ].filter(Boolean).join(' · ')));
   add(plain('c3'), radioLabel('c3') + (radioValue('c3') === 'Sì' ? ' — ' + val('c3_text') : ''));
@@ -1177,10 +1056,9 @@ function srcParam() {
 async function buildPayload() {
   const file = cvInput.files[0];
   const b2 = readB2(); const c2 = readC2();
-  const withItNames = (x) => Object.assign({}, x, { country: regionName(x.countryCode, 'it') });
+  const withCountry = (x) => Object.assign({}, x, { country: regionName(x.countryCode) });
   const a6 = val('a6');
   return {
-    lang: LANG,
     src: srcParam(),
     answers: {
       a1: val('a1'), a2: val('a2'), a3: val('a3'), a4: val('a4'), a5: val('a5'),
@@ -1193,8 +1071,8 @@ async function buildPayload() {
       f1: radioValue('f1'), f1_other: radioValue('f1') === 'Altro' ? val('f1_other') : '',
       f2: checked('f2'), f3: checked('f3'), f4: checked('f4'),
     },
-    b2: b2.map(withItNames),
-    c2: c2.map(withItNames),
+    b2: b2.map(withCountry),
+    c2: c2.map(withCountry),
     cv: { name: file.name, size: file.size, data: await readFileBase64(file) },
     summary: buildSummary(b2, c2, file),
   };
@@ -1282,7 +1160,7 @@ function focusField(f) {
    ===================================================================== */
 addBlock('b2');
 addBlock('c2');
-applyI18n();
+applyTexts();
 if (isClosed()) showClosed();
 </script>
 </body>

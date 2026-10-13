@@ -17,14 +17,9 @@
     --font-body: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
   }
   * { box-sizing: border-box; }
-  [hidden] { display: none !important; }
   html, body { margin: 0; padding: 0; }
   body { background: var(--isk-bg); color: var(--isk-text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   .ft-wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
-  .ft-topbar { display: flex; justify-content: flex-end; margin-bottom: 14px; }
-  .ft-lang { display: inline-flex; border: 1px solid var(--isk-border); border-radius: 999px; background: #fff; padding: 3px; }
-  .ft-lang button { font-family: var(--font-head); font-weight: 600; font-size: 13px; letter-spacing: .03em; border: none; background: transparent; color: var(--isk-muted); padding: 6px 14px; border-radius: 999px; cursor: pointer; }
-  .ft-lang button[aria-pressed="true"] { background: var(--isk-navy); color: #fff; }
   .ft-banner { background: var(--isk-band-bg); border-radius: var(--isk-radius); padding: 20px 24px; display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
   .ft-banner img.logo { height: 56px; width: auto; }
   .ft-banner h1 { font-family: var(--font-head); font-weight: 700; color: var(--isk-band-ink); font-size: 24px; line-height: 1.3; margin: 0; }
@@ -43,76 +38,29 @@
 </head>
 <body>
 <div class="ft-wrap">
-  <div class="ft-topbar">
-    <div class="ft-lang" role="group" aria-label="Lingua / Language">
-      <button type="button" data-lang="it" aria-pressed="true">IT</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-    </div>
+  <div class="ft-banner">
+    <img class="logo" src="logo-italienska-skolan.png" alt="Italienska Skolan Stockholm" onerror="this.style.display='none'" />
+    <h1>Come trattiamo i dati della sua candidatura</h1>
   </div>
-
-  <!-- ======================= ITALIANO ======================= -->
-  <div lang="it" data-content="it">
-    <div class="ft-banner">
-      <img class="logo" src="logo-italienska-skolan.png" alt="Italienska Skolan Stockholm" onerror="this.style.display='none'" />
-      <h1>Come trattiamo i dati della sua candidatura</h1>
-    </div>
-    <div class="ft-section">
-      <p>TuttoTondo Education AB (org. nr 559457-2819, Box 38024, 100 64 Stoccolma), ente gestore di
-      Italienska Skolan Stockholm, è titolare del trattamento dei dati personali che ci invia con questa candidatura.</p>
-      <p><strong>Perché li trattiamo.</strong> Usiamo i suoi dati solo per valutare la candidatura e per contattarla
-      in merito a questa selezione. La base giuridica è l'esecuzione di misure precontrattuali in vista di un possibile
-      contratto di lavoro e il nostro legittimo interesse a selezionare il personale più adatto.</p>
-      <p><strong>Chi li vede.</strong> Solo le persone coinvolte nella selezione e il nostro fornitore del modulo e del
-      servizio di hosting.
-      <!-- ⚠️ DA CONFERMARE (Matteo): la frase seguente era tra parentesi quadre nelle specifiche.
-           Pubblicarla solo se l'archiviazione su server UE/SEE è confermata. -->
-      I suoi dati sono conservati su server all'interno dell'UE/SEE.</p>
-      <p><strong>Per quanto tempo.</strong> Conserviamo i dati per 24 mesi dalla conclusione di questa selezione,
-      per poter rispondere a eventuali richieste o contestazioni, poi li cancelliamo. Se ce lo consente con l'apposita
-      casella, in questo periodo potremo contattarla anche per future posizioni.</p>
-      <p><strong>I suoi diritti.</strong> Può chiedere di accedere ai suoi dati, di correggerli o di cancellarli, o
-      opporsi al loro trattamento, scrivendo a <a href="mailto:careers@italienskaskolan.se">careers@italienskaskolan.se</a>.
-      Può anche presentare reclamo all'Autorità svedese per la protezione dei dati personali
-      (Integritetsskyddsmyndigheten, IMY).</p>
-    </div>
-  </div>
-
-  <!-- ======================= ENGLISH ======================= -->
-  <div lang="en" data-content="en" hidden>
-    <div class="ft-banner">
-      <img class="logo" src="logo-italienska-skolan.png" alt="Italienska Skolan Stockholm" onerror="this.style.display='none'" />
-      <h1>How we handle the data in your application</h1>
-    </div>
-    <div class="ft-section">
-      <p>TuttoTondo Education AB (org. no. 559457-2819, Box 38024, 100 64 Stockholm), which operates
-      Italienska Skolan Stockholm, is the controller of the personal data you send us with this application.</p>
-      <p><strong>Why we process it.</strong> We use your data only to assess your application and to contact you about
-      this recruitment. The legal basis is taking steps prior to entering into a possible employment contract and our
-      legitimate interest in selecting the most suitable staff.</p>
-      <p><strong>Who sees it.</strong> Only the people involved in the recruitment and our form and hosting provider.
-      <!-- ⚠️ TO CONFIRM (Matteo): see the Italian version. -->
-      Your data is stored on servers within the EU/EEA.</p>
-      <p><strong>How long we keep it.</strong> We keep your data for 24 months after this recruitment ends, so that we
-      can respond to any requests or complaints, and then delete it. If you allow us to with the relevant box, we may
-      also contact you about future positions during this period.</p>
-      <p><strong>Your rights.</strong> You can ask to access, correct or delete your data, or object to its processing,
-      by writing to <a href="mailto:careers@italienskaskolan.se">careers@italienskaskolan.se</a>. You can also lodge a
-      complaint with the Swedish Authority for Privacy Protection (Integritetsskyddsmyndigheten, IMY).</p>
-    </div>
+  <div class="ft-section">
+    <p>TuttoTondo Education AB (org. nr 559457-2819, Box 38024, 100 64 Stoccolma), ente gestore di
+    Italienska Skolan Stockholm, è titolare del trattamento dei dati personali che ci invia con questa candidatura.</p>
+    <p><strong>Perché li trattiamo.</strong> Usiamo i suoi dati solo per valutare la candidatura e per contattarla
+    in merito a questa selezione. La base giuridica è l'esecuzione di misure precontrattuali in vista di un possibile
+    contratto di lavoro e il nostro legittimo interesse a selezionare il personale più adatto.</p>
+    <p><strong>Chi li vede.</strong> Solo le persone coinvolte nella selezione e il nostro fornitore del modulo e del
+    servizio di hosting.
+    <!-- ⚠️ DA CONFERMARE (Matteo): la frase seguente era tra parentesi quadre nelle specifiche.
+         Pubblicarla solo se l'archiviazione su server UE/SEE è confermata. -->
+    I suoi dati sono conservati su server all'interno dell'UE/SEE.</p>
+    <p><strong>Per quanto tempo.</strong> Conserviamo i dati per 24 mesi dalla conclusione di questa selezione,
+    per poter rispondere a eventuali richieste o contestazioni, poi li cancelliamo. Se ce lo consente con l'apposita
+    casella, in questo periodo potremo contattarla anche per future posizioni.</p>
+    <p><strong>I suoi diritti.</strong> Può chiedere di accedere ai suoi dati, di correggerli o di cancellarli, o
+    opporsi al loro trattamento, scrivendo a <a href="mailto:careers@italienskaskolan.se">careers@italienskaskolan.se</a>.
+    Può anche presentare reclamo all'Autorità svedese per la protezione dei dati personali
+    (Integritetsskyddsmyndigheten, IMY).</p>
   </div>
 </div>
-
-<script>
-  const TITLES = { it: 'Informativa sulla privacy – Candidature', en: 'Privacy notice – Applications' };
-  function setLang(lang) {
-    document.documentElement.lang = lang;
-    document.title = TITLES[lang];
-    document.querySelectorAll('[data-content]').forEach((el) => { el.hidden = el.dataset.content !== lang; });
-    document.querySelectorAll('.ft-lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-  }
-  document.querySelectorAll('.ft-lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
-  const q = new URLSearchParams(location.search).get('lang');
-  setLang(q === 'en' ? 'en' : 'it');
-</script>
 </body>
 </html>
