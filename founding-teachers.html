@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Candidatura – Founding Teacher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---------------------------------------------------------------
+     BRAND TOKENS — Italienska Skolan Stockholm.
+     Same tokens as the Scuola del Sabato form (scuola-del-sabato.html):
+     royal blue (#4060A8) from the logo, deep navy for text, light-blue
+     band for the header and info notes. Poppins / Raleway fallback stack.
+     --------------------------------------------------------------- */
+  :root {
+    --isk-navy:      #20325C;
+    --isk-blue:      #4060A8;
+    --isk-blue-soft: #78B0E0;
+    --isk-red:       #D33A3A;
+    --isk-band-ink:  #2E4880;
+    --isk-band-bg:   #E9F1FB;
+    --isk-bg:        #F3F6FB;
+    --isk-surface:   #FFFFFF;
+    --isk-text:      #20325C;
+    --isk-muted:     #5C6678;
+    --isk-border:    #D5DEEC;
+    --isk-error:     #D33A3A;
+    --isk-radius:    12px;
+    --font-head: 'Poppins', 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--isk-bg);
+    color: var(--isk-text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ft-wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  /* Top bar: back link + language toggle */
+  .ft-topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .ft-back { color: var(--isk-blue); text-decoration: none; font-size: 14px; font-weight: 600; }
+  .ft-back:hover { text-decoration: underline; }
+  .ft-lang { display: inline-flex; border: 1px solid var(--isk-border); border-radius: 999px; background: #fff; padding: 3px; }
+  .ft-lang button {
+    font-family: var(--font-head); font-weight: 600; font-size: 13px; letter-spacing: .03em;
+    border: none; background: transparent; color: var(--isk-muted);
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  }
+  .ft-lang button[aria-pressed="true"] { background: var(--isk-navy); color: #fff; }
+
+  /* Header banner */
+  .ft-banner {
+    background: var(--isk-band-bg);
+    border-radius: var(--isk-radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ft-banner img.logo { height: 56px; width: auto; }
+  .ft-banner h1 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--isk-band-ink);
+    font-size: 24px;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  /* Sections */
+  .ft-section {
+    background: var(--isk-surface);
+    border: 1px solid var(--isk-border);
+    border-radius: var(--isk-radius);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .ft-section > h2 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--isk-navy);
+    font-size: 20px;
+    margin: 0 0 16px;
+  }
+  .ft-section > p:first-child { margin-top: 0; }
+  .ft-section > p:last-child { margin-bottom: 0; }
+  .ft-highlight {
+    background: var(--isk-band-bg); border: 1px solid #C5D8F0; color: var(--isk-band-ink);
+    border-radius: 8px; padding: 12px 16px; font-size: 15px;
+  }
+  .ft-highlight strong { color: var(--isk-navy); }
+
+  /* Fields */
+  .ft-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .ft-field { display: flex; flex-direction: column; margin-bottom: 20px; min-width: 0; }
+  .ft-field:last-child { margin-bottom: 0; }
+  .ft-grid > .ft-field { margin-bottom: 16px; }
+  .ft-field.full { grid-column: 1 / -1; }
+  .ft-field > label, .ft-field > .ft-q {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--isk-text);
+  }
+  .req { color: var(--isk-red); margin-left: 2px; }
+  .ft-field .hint { color: var(--isk-muted); font-size: 13px; margin-top: 4px; }
+  .ft-field input[type="text"],
+  .ft-field input[type="email"],
+  .ft-field input[type="tel"],
+  .ft-field input[type="url"],
+  .ft-field select,
+  .ft-field textarea {
+    font-family: var(--font-body);
+    font-size: 16px;           /* ≥16px so iOS Safari doesn't zoom on focus */
+    padding: 10px 12px;
+    border: 1px solid var(--isk-border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--isk-text);
+    width: 100%;
+  }
+  .ft-field textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+  .ft-field input:focus,
+  .ft-field select:focus,
+  .ft-field textarea:focus {
+    outline: none;
+    border-color: var(--isk-blue);
+    box-shadow: 0 0 0 3px rgba(58, 77, 166, 0.15);
+  }
+  .ft-field.invalid input:not([type="radio"]):not([type="checkbox"]),
+  .ft-field.invalid select,
+  .ft-field.invalid textarea { border-color: var(--isk-error); }
+  .ft-error { color: var(--isk-error); font-size: 13px; margin-top: 6px; display: none; }
+  .ft-field.invalid > .ft-error { display: block; }
+
+  /* Word counter */
+  .ft-wc { color: var(--isk-muted); font-size: 13px; margin-top: 4px; text-align: right; }
+  .ft-wc.full { color: var(--isk-error); }
+
+  /* Radio groups */
+  .ft-radio-group { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+  .ft-radio-group.col { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ft-radio-group label {
+    font-weight: 400; display: flex; align-items: flex-start; gap: 8px; margin: 0; cursor: pointer; font-size: 15px;
+  }
+  .ft-radio-group input { margin: 4px 0 0; flex: 0 0 auto; width: 16px; height: 16px; accent-color: var(--isk-blue); }
+  .ft-sub { margin-top: 12px; }
+
+  /* Repeatable blocks (B2 titles, C2 positions) */
+  .ft-block {
+    border: 1px solid var(--isk-border);
+    border-left: 4px solid var(--isk-blue);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    background: #fcfdff;
+  }
+  .ft-block-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .ft-block-head h3 { font-family: var(--font-head); font-size: 16px; color: var(--isk-navy); margin: 0; }
+  .ft-monthyear { display: flex; gap: 8px; }
+  .ft-monthyear select:first-child { flex: 1 1 auto; min-width: 0; }
+  .ft-monthyear select:last-child { flex: 0 0 104px; }
+  .ft-inline-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-top: 8px; cursor: pointer; }
+  .ft-inline-check input { accent-color: var(--isk-blue); width: 16px; height: 16px; margin: 0; }
+
+  /* File upload */
+  .ft-file {
+    border: 1px dashed #AFC3E2; border-radius: 10px; background: #fcfdff;
+    padding: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  }
+  .ft-file input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .ft-file input[type="file"]:focus-visible + label { outline: 3px solid rgba(58, 77, 166, 0.35); outline-offset: 2px; }
+  .ft-file-name { font-size: 14px; color: var(--isk-muted); word-break: break-all; }
+  .ft-file-name.has { color: var(--isk-navy); font-weight: 600; }
+  .ft-field.invalid .ft-file { border-color: var(--isk-error); }
+
+  /* Consent checkboxes */
+  .ft-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; font-weight: 400 !important; cursor: pointer; }
+  .ft-consent input { margin-top: 4px; width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--isk-blue); }
+  .ft-consent a { color: var(--isk-blue); }
+
+  /* Buttons */
+  .ft-btn {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+    padding: 12px 22px;
+    cursor: pointer;
+    border: none;
+    transition: filter .15s ease, background .15s ease;
+  }
+  .ft-btn-primary { background: var(--isk-blue); color: #fff; }
+  .ft-btn-primary:hover { filter: brightness(1.08); }
+  .ft-btn-secondary { background: transparent; color: var(--isk-blue); border: 1px solid var(--isk-blue); }
+  .ft-btn-secondary:hover { background: rgba(58,77,166,0.06); }
+  .ft-btn-ghost-danger { background: transparent; color: var(--isk-red); border: none; font-size: 13px; cursor: pointer; padding: 4px 8px; font-family: var(--font-body); }
+  .ft-btn[disabled] { opacity: .55; cursor: not-allowed; }
+  .ft-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  .ft-form-status { margin-top: 16px; font-size: 14px; }
+  .ft-form-status.err { color: var(--isk-error); }
+
+  /* In-page confirmation */
+  .ft-confirm-check {
+    width: 64px; height: 64px; border-radius: 50%; background: var(--isk-band-bg);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    font-size: 32px; color: var(--isk-navy);
+  }
+
+  @media (max-width: 640px) {
+    .ft-wrap { padding-top: 16px; }
+    .ft-grid { grid-template-columns: 1fr; }
+    .ft-section { padding: 20px 16px; }
+    .ft-block { padding: 16px 14px; }
+    .ft-banner { flex-direction: column; align-items: flex-start; gap: 12px; padding: 18px; }
+    .ft-banner img.logo { height: 44px; }
+    .ft-banner h1 { font-size: 20px; }
+    .ft-btn-primary[type="submit"] { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="ft-wrap">
+
+  <div class="ft-topbar">
+    <a class="ft-back" href="https://www.italienskaskolan.se/" data-i18n="back"></a>
+    <div class="ft-lang" role="group" aria-label="Lingua / Language">
+      <button type="button" data-lang="it" aria-pressed="true">IT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="ft-banner">
+    <img class="logo" src="logo-italienska-skolan.png" alt="Italienska Skolan Stockholm"
+         onerror="this.style.display='none'" />
+    <h1 data-i18n="title"></h1>
+  </div>
+
+  <!-- Closed (after the deadline) -->
+  <div class="ft-section" id="ft-closed" hidden>
+    <p data-i18n="closed"></p>
+  </div>
+
+  <!-- INTRODUCTION -->
+  <div class="ft-section" id="ft-intro">
+    <p data-i18n="intro"></p>
+    <div class="ft-highlight" data-i18n="deadline"></div>
+  </div>
+
+  <form id="ft-form" novalidate>
+
+    <!-- ============ PARTE A ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secA"></h2>
+      <div class="ft-grid">
+        <div class="ft-field" data-kind="text" data-required>
+          <label for="a1"><span data-i18n="a1"></span><span class="req">*</span></label>
+          <input type="text" id="a1" name="a1" autocomplete="given-name" />
+        </div>
+        <div class="ft-field" data-kind="text" data-required>
+          <label for="a2"><span data-i18n="a2"></span><span class="req">*</span></label>
+          <input type="text" id="a2" name="a2" autocomplete="family-name" />
+        </div>
+        <div class="ft-field" data-kind="email" data-required>
+          <label for="a3"><span data-i18n="a3"></span><span class="req">*</span></label>
+          <input type="email" id="a3" name="a3" autocomplete="email" inputmode="email" data-i18n-ph="ph_email" />
+        </div>
+        <div class="ft-field" data-kind="tel" data-required>
+          <label for="a4"><span data-i18n="a4"></span><span class="req">*</span></label>
+          <input type="tel" id="a4" name="a4" autocomplete="tel" data-i18n-ph="ph_phone" />
+        </div>
+        <div class="ft-field" data-kind="text" data-required>
+          <label for="a5"><span data-i18n="a5"></span><span class="req">*</span></label>
+          <input type="text" id="a5" name="a5" data-i18n-ph="ph_city" />
+        </div>
+        <div class="ft-field" data-kind="url">
+          <label for="a6"><span data-i18n="a6"></span></label>
+          <input type="url" id="a6" name="a6" inputmode="url" placeholder="https://www.linkedin.com/in/…" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PARTE B ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secB"></h2>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b1"></span><span class="req">*</span></div>
+        <div class="ft-radio-group col" data-radio="b1"></div>
+      </div>
+
+      <div class="ft-field" id="b2-field">
+        <div class="ft-q"><span data-i18n="b2"></span><span class="req">*</span></div>
+        <div id="b2-blocks"></div>
+        <div><button type="button" class="ft-btn ft-btn-secondary" id="b2-add" data-i18n="b2_add"></button></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b3"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="b3"></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b4"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="b4"></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b5"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="b5"></div>
+      </div>
+      <div class="ft-field" data-kind="text">
+        <label for="b5_cert"><span data-i18n="b5_cert"></span></label>
+        <input type="text" id="b5_cert" name="b5_cert" data-i18n-ph="ph_cert" />
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b6"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="b6"></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b7"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="b7"></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="b8"></span><span class="req">*</span></div>
+        <div class="ft-radio-group col" data-radio="b8"></div>
+      </div>
+    </div>
+
+    <!-- ============ PARTE C ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secC"></h2>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="c1"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="c1"></div>
+      </div>
+
+      <div class="ft-field" id="c2-field">
+        <div class="ft-q"><span data-i18n="c2"></span></div>
+        <div id="c2-blocks"></div>
+        <div><button type="button" class="ft-btn ft-btn-secondary" id="c2-add" data-i18n="c2_add"></button></div>
+      </div>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="c3"></span><span class="req">*</span></div>
+        <div class="ft-radio-group" data-radio="c3"></div>
+      </div>
+      <div class="ft-field" data-kind="words" data-max="60" data-required id="c3-text-field" hidden>
+        <label for="c3_text"><span data-i18n="c3_text"></span><span class="req">*</span></label>
+        <textarea id="c3_text" name="c3_text"></textarea>
+      </div>
+
+      <div class="ft-field" data-kind="file" data-required>
+        <div class="ft-q"><span data-i18n="c4"></span><span class="req">*</span></div>
+        <div class="ft-file">
+          <input type="file" id="c4" name="c4" accept="application/pdf,.pdf" />
+          <label for="c4" class="ft-btn ft-btn-secondary" style="margin:0" data-i18n="c4_choose"></label>
+          <span class="ft-file-name" id="c4-name" data-i18n="c4_none"></span>
+        </div>
+        <div class="hint" data-i18n="c4_hint"></div>
+      </div>
+    </div>
+
+    <!-- ============ PARTE D ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secD"></h2>
+      <div class="ft-field" data-kind="words" data-max="60" data-required>
+        <label for="d1"><span data-i18n="d1"></span><span class="req">*</span></label>
+        <textarea id="d1" name="d1"></textarea>
+      </div>
+      <div class="ft-field" data-kind="words" data-max="60" data-required>
+        <label for="d2"><span data-i18n="d2"></span><span class="req">*</span></label>
+        <textarea id="d2" name="d2"></textarea>
+      </div>
+    </div>
+
+    <!-- ============ PARTE E ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secE"></h2>
+      <div class="ft-field" data-kind="words" data-max="80" data-required>
+        <label for="e1"><span data-i18n="e1"></span><span class="req">*</span></label>
+        <textarea id="e1" name="e1"></textarea>
+      </div>
+      <div class="ft-field" data-kind="words" data-max="60">
+        <label for="e2"><span data-i18n="e2"></span></label>
+        <textarea id="e2" name="e2"></textarea>
+      </div>
+    </div>
+
+    <!-- ============ PARTE F ============ -->
+    <div class="ft-section">
+      <h2 data-i18n="secF"></h2>
+
+      <div class="ft-field" data-kind="radio" data-required>
+        <div class="ft-q"><span data-i18n="f1"></span><span class="req">*</span></div>
+        <div class="ft-radio-group col" data-radio="f1"></div>
+      </div>
+      <div class="ft-field" data-kind="text" data-required id="f1-other-field" hidden>
+        <label for="f1_other"><span data-i18n="f1_other"></span><span class="req">*</span></label>
+        <input type="text" id="f1_other" name="f1_other" />
+      </div>
+
+      <div class="ft-field" data-kind="consent" data-required>
+        <label class="ft-consent">
+          <input type="checkbox" name="f2" />
+          <span><span data-i18n="f2"></span><span class="req">*</span></span>
+        </label>
+      </div>
+      <div class="ft-field" data-kind="consent" data-required>
+        <label class="ft-consent">
+          <input type="checkbox" name="f3" />
+          <span><span data-i18n="f3"></span><span class="req">*</span></span>
+        </label>
+      </div>
+      <div class="ft-field" data-kind="consent">
+        <label class="ft-consent">
+          <input type="checkbox" name="f4" />
+          <span data-i18n="f4"></span>
+        </label>
+      </div>
+
+      <div class="ft-actions">
+        <button type="submit" class="ft-btn ft-btn-primary" id="ft-submit" data-i18n="submit"></button>
+      </div>
+      <div class="ft-form-status" id="ft-status" role="alert"></div>
+    </div>
+
+  </form>
+
+  <!-- In-page confirmation (shown after a successful submit) -->
+  <div class="ft-section" id="ft-confirmation" hidden>
+    <div class="ft-confirm-check">✓</div>
+    <p data-i18n="confirm1" style="font-weight:600;text-align:center"></p>
+    <p data-i18n="confirm2"></p>
+  </div>
+</div>
+
+<!-- B2: one qualification -->
+<template id="tpl-b2">
+  <div class="ft-block" data-block="b2">
+    <div class="ft-block-head">
+      <h3><span data-i18n="b2_block"></span> <span data-num></span></h3>
+      <button type="button" class="ft-btn-ghost-danger" data-remove data-i18n="remove"></button>
+    </div>
+    <div class="ft-grid">
+      <div class="ft-field full" data-kind="text" data-required>
+        <label><span data-i18n="b2_title"></span><span class="req">*</span></label>
+        <input type="text" data-k="title" />
+      </div>
+      <div class="ft-field full" data-kind="select" data-required>
+        <label><span data-i18n="b2_level"></span><span class="req">*</span></label>
+        <select data-k="level" data-opts="b2_level"></select>
+      </div>
+      <div class="ft-field" data-kind="text" data-required>
+        <label><span data-i18n="b2_uni"></span><span class="req">*</span></label>
+        <input type="text" data-k="university" />
+      </div>
+      <div class="ft-field" data-kind="text" data-required>
+        <label><span data-i18n="b2_fac"></span><span class="req">*</span></label>
+        <input type="text" data-k="faculty" />
+      </div>
+      <div class="ft-field" data-kind="select" data-required>
+        <label><span data-i18n="country"></span><span class="req">*</span></label>
+        <select data-k="country" data-opts="country"></select>
+      </div>
+      <div class="ft-field" data-kind="select" data-required>
+        <label><span data-i18n="b2_year"></span><span class="req">*</span></label>
+        <select data-k="year" data-opts="gradYear"></select>
+      </div>
+      <div class="ft-field" data-kind="text">
+        <label><span data-i18n="b2_grade"></span></label>
+        <input type="text" data-k="grade" data-i18n-ph="ph_grade" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- C2: one teaching position (optional block: required fields kick in once anything is filled) -->
+<template id="tpl-c2">
+  <div class="ft-block" data-block="c2">
+    <div class="ft-block-head">
+      <h3><span data-i18n="c2_block"></span> <span data-num></span></h3>
+      <button type="button" class="ft-btn-ghost-danger" data-remove data-i18n="remove"></button>
+    </div>
+    <div class="ft-grid">
+      <div class="ft-field" data-kind="text" data-req-if-touched>
+        <label><span data-i18n="c2_school"></span><span class="req">*</span></label>
+        <input type="text" data-k="school" />
+      </div>
+      <div class="ft-field" data-kind="select" data-req-if-touched>
+        <label><span data-i18n="country"></span><span class="req">*</span></label>
+        <select data-k="country" data-opts="country"></select>
+      </div>
+      <div class="ft-field" data-kind="select" data-req-if-touched>
+        <label><span data-i18n="c2_type"></span><span class="req">*</span></label>
+        <select data-k="type" data-opts="c2_type"></select>
+      </div>
+      <div class="ft-field" data-kind="select" data-req-if-touched>
+        <label><span data-i18n="c2_role"></span><span class="req">*</span></label>
+        <select data-k="role" data-opts="c2_role"></select>
+      </div>
+      <div class="ft-field full" data-kind="text" data-req-if-touched>
+        <label><span data-i18n="c2_classes"></span><span class="req">*</span></label>
+        <input type="text" data-k="classes" data-i18n-ph="ph_classes" />
+      </div>
+      <div class="ft-field" data-kind="monthyear" data-req-if-touched>
+        <label><span data-i18n="c2_from"></span><span class="req">*</span></label>
+        <div class="ft-monthyear">
+          <select data-k="fromMonth" data-opts="month"></select>
+          <select data-k="fromYear" data-opts="workYear"></select>
+        </div>
+      </div>
+      <div class="ft-field" data-kind="monthyear" data-req-if-touched data-to>
+        <label><span data-i18n="c2_to"></span><span class="req">*</span></label>
+        <div class="ft-monthyear" data-to-selects>
+          <select data-k="toMonth" data-opts="month"></select>
+          <select data-k="toYear" data-opts="workYear"></select>
+        </div>
+        <label class="ft-inline-check"><input type="checkbox" data-k="current" /> <span data-i18n="c2_current"></span></label>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+/* =====================================================================
+   CONFIG
+   ===================================================================== */
+const FT_CONFIG = {
+  // Apps Script web-app deployment URL (doPost). Paste after deploying Code.gs.
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwmYlgnDDWSegUMTj9Dr5OA8T5MyQ-729gB0YdM7otYitXOMhooB_NVe1MDOdXsV_UD/exec',
+  // Automatic closing: Sunday 1 November 2026, 23:59 Europe/Stockholm (CET, UTC+1).
+  // Code.gs enforces the same deadline server-side.
+  closesAt: '2026-11-01T23:59:59+01:00',
+  privacyUrl: 'privacy.html',
+  maxCvBytes: 5 * 1024 * 1024,
+  maxB2: 3,
+  maxC2: 4,
+};
+
+/* =====================================================================
+   TEXTS — Italian copy is the spec text verbatim ("Domanda visualizzata").
+   ===================================================================== */
+const I18N = {
+  it: {
+    pageTitle: 'Candidatura – Founding Teacher',
+    back: '← Torna a italienskaskolan.se',
+    title: 'Candidatura – Founding Teacher, docente di scuola primaria',
+    intro: "Per compilare il modulo bastano 15–20 minuti. Tenga pronto il curriculum in italiano in formato PDF. I campi con l'asterisco sono obbligatori.",
+    deadline: '<strong>Scadenza:</strong> domenica 1 novembre 2026, ore 23:59.',
+    closed: "Le candidature per questa selezione sono chiuse. Grazie per l'interesse: le prossime posizioni aperte saranno pubblicate su questa pagina.",
+    secA: 'Parte A – Dati personali',
+    secB: 'Parte B – Requisiti',
+    secC: 'Parte C – Esperienza di insegnamento e curriculum',
+    secD: 'Parte D – Competenze',
+    secE: 'Parte E – Motivazione',
+    secF: 'Parte F – Consenso e invio',
+    a1: 'Nome', a2: 'Cognome', a3: 'Email',
+    a4: 'Telefono (con prefisso internazionale)',
+    a5: 'Città e Paese in cui vive attualmente',
+    a6: 'Profilo LinkedIn',
+    ph_email: 'nome@esempio.com', ph_phone: '+39 …', ph_city: 'Es. Bologna, Italia',
+    ph_cert: 'Es. Cambridge C1 Advanced, 2022', ph_grade: 'Es. 110/110',
+    ph_classes: 'Es. 1ª–3ª',
+    b1: "Possiede una laurea che abilita all'insegnamento nella scuola primaria?",
+    b2: 'Indichi il suo titolo di studio. Può aggiungerne fino a 3, a partire dal più pertinente.',
+    b2_add: '+ Aggiungi un titolo', b2_block: 'Titolo',
+    b2_title: 'Denominazione del titolo', b2_level: 'Livello', b2_uni: 'Università',
+    b2_fac: 'Facoltà o dipartimento', b2_year: 'Anno di conseguimento o previsto',
+    b2_grade: 'Voto finale (facoltativo)',
+    country: 'Paese',
+    b3: "Il primo titolo che ha indicato è riconosciuto come abilitazione all'insegnamento nella scuola primaria nel Paese in cui l'ha conseguito?",
+    b4: 'Il suo livello di italiano',
+    b5: 'Il suo livello di inglese (QCER)',
+    b5_cert: 'Certificazione (nome e anno)',
+    b6: 'Il suo livello di svedese',
+    b7: 'Può iniziare a lavorare a tempo pieno a Stoccolma ad agosto 2027?',
+    b8: 'Ha il diritto di lavorare in Svezia?',
+    c1: 'Anni di esperienza di insegnamento nella scuola primaria (supplenze comprese)',
+    c2: 'I suoi incarichi di insegnamento. Può indicarne fino a 4, a partire dal più recente.',
+    c2_add: '+ Aggiungi un incarico', c2_block: 'Incarico',
+    c2_school: 'Scuola', c2_type: 'Tipo di scuola', c2_role: 'Ruolo', c2_classes: 'Classi',
+    c2_from: 'Dal', c2_to: 'Al', c2_current: 'In corso',
+    c3: 'Ha insegnato in un contesto bilingue, CLIL, internazionale o IB?',
+    c3_text: 'Lo descriva brevemente',
+    c4: 'Carichi il suo curriculum in italiano (PDF, max 2 pagine)',
+    c4_choose: 'Scegli il file', c4_none: 'Nessun file selezionato', c4_hint: 'Solo PDF, max 5 MB.',
+    d1: "Descriva un'attività in cui le sue alunne e i suoi alunni della scuola primaria hanno usato le tecnologie per creare, esplorare o risolvere un problema: classe, strumenti e che cosa hanno prodotto.",
+    d2: 'Qual è la sua esperienza della scuola primaria italiana e delle Indicazioni Nazionali (insegnamento, tirocinio, formazione)?',
+    e1: 'Perché desidera entrare nel team fondatore di Italienska Skolan Stockholm?',
+    e2: "C'è altro che vorrebbe farci sapere?",
+    f1: 'Come ha saputo di questa posizione?',
+    f1_other: 'Specifichi',
+    f2: "Ho letto l'<a href=\"{privacy}\" target=\"_blank\" rel=\"noopener\">informativa sulla privacy</a> e acconsento al trattamento dei miei dati da parte di Italienska Skolan Stockholm per questa selezione.",
+    f3: 'Confermo che le mie risposte sono veritiere. So che la scuola potrà chiedermi copia dei titoli di studio e delle referenze.',
+    f4: 'Potete contattarmi per future posizioni nei prossimi 24 mesi.',
+    submit: 'Invia la candidatura',
+    sending: 'Invio in corso…',
+    remove: '✕ Rimuovi',
+    select: 'Selezioni…', month: 'Mese', year: 'Anno',
+    words: '{n} / {max} parole',
+    confirm1: 'Grazie, abbiamo ricevuto la sua candidatura. Le abbiamo inviato un\'email di conferma con una copia delle risposte.',
+    confirm2: 'Esaminiamo le candidature man mano che arrivano. Se il suo profilo corrisponde a quello che cerchiamo, la contatteremo entro sabato 7 novembre per i passi successivi. Se entro quella data non avrà nostre notizie, significa che in questa occasione non proseguiremo con la sua candidatura.',
+    err_required: 'Questo campo è obbligatorio.',
+    err_email: "Controlli l'indirizzo email: sembra incompleto.",
+    err_pdf: 'Carichi il curriculum in formato PDF.',
+    err_size: 'Il file supera i 5 MB: carichi un PDF più leggero.',
+    err_words: 'La risposta supera il numero massimo di parole.',
+    err_consent: 'Per inviare la candidatura serve la sua conferma.',
+    err_phone: 'Inserisca il numero con il prefisso internazionale (es. +39 …).',
+    err_url: 'Controlli il link: sembra incompleto.',
+    err_form: 'Alcuni campi non sono compilati correttamente: li trova evidenziati in rosso.',
+    err_send: 'Non è stato possibile inviare la candidatura. Riprovi tra qualche minuto; se il problema persiste, scriva a careers@italienskaskolan.se.',
+    yes: 'Sì', no: 'No',
+  },
+  en: {
+    pageTitle: 'Application – Founding Teacher',
+    back: '← Back to italienskaskolan.se',
+    title: 'Application – Founding Teacher, primary school teacher',
+    intro: 'Completing this form takes 15–20 minutes. Please have your CV in Italian ready as a PDF. Fields marked with an asterisk are required.',
+    deadline: '<strong>Deadline:</strong> Sunday 1 November 2026, 23:59 (Stockholm time).',
+    closed: 'Applications for this recruitment are now closed. Thank you for your interest: future openings will be published on this page.',
+    secA: 'Part A – Personal details',
+    secB: 'Part B – Requirements',
+    secC: 'Part C – Teaching experience and CV',
+    secD: 'Part D – Skills',
+    secE: 'Part E – Motivation',
+    secF: 'Part F – Consent and submission',
+    a1: 'First name', a2: 'Last name', a3: 'Email',
+    a4: 'Phone (with international dialling code)',
+    a5: 'City and country where you currently live',
+    a6: 'LinkedIn profile',
+    ph_email: 'name@example.com', ph_phone: '+39 …', ph_city: 'E.g. Bologna, Italy',
+    ph_cert: 'E.g. Cambridge C1 Advanced, 2022', ph_grade: 'E.g. 110/110',
+    ph_classes: 'E.g. Years 1–3',
+    b1: 'Do you hold a degree that qualifies you to teach in primary school?',
+    b2: 'Please list your qualifications. You can add up to 3, starting with the most relevant.',
+    b2_add: '+ Add a qualification', b2_block: 'Qualification',
+    b2_title: 'Name of the qualification', b2_level: 'Level', b2_uni: 'University',
+    b2_fac: 'Faculty or department', b2_year: 'Year obtained or expected',
+    b2_grade: 'Final grade (optional)',
+    country: 'Country',
+    b3: 'Is the first qualification you listed recognised as a primary-school teaching qualification in the country where you obtained it?',
+    b4: 'Your level of Italian',
+    b5: 'Your level of English (CEFR)',
+    b5_cert: 'Certification (name and year)',
+    b6: 'Your level of Swedish',
+    b7: 'Can you start working full-time in Stockholm in August 2027?',
+    b8: 'Do you have the right to work in Sweden?',
+    c1: 'Years of primary-school teaching experience (including supply teaching)',
+    c2: 'Your teaching positions. You can list up to 4, starting with the most recent.',
+    c2_add: '+ Add a position', c2_block: 'Position',
+    c2_school: 'School', c2_type: 'Type of school', c2_role: 'Role', c2_classes: 'Classes / year groups',
+    c2_from: 'From', c2_to: 'To', c2_current: 'Ongoing',
+    c3: 'Have you taught in a bilingual, CLIL, international or IB setting?',
+    c3_text: 'Please describe it briefly',
+    c4: 'Upload your CV in Italian (PDF, max 2 pages)',
+    c4_choose: 'Choose file', c4_none: 'No file selected', c4_hint: 'PDF only, max 5 MB.',
+    d1: 'Describe an activity in which your primary-school pupils used technology to create, explore or solve a problem: the class, the tools and what they produced.',
+    d2: 'What is your experience of the Italian primary school and of the Indicazioni Nazionali (teaching, placement, training)?',
+    e1: 'Why would you like to join the founding team of Italienska Skolan Stockholm?',
+    e2: 'Is there anything else you would like us to know?',
+    f1: 'How did you hear about this position?',
+    f1_other: 'Please specify',
+    f2: 'I have read the <a href="{privacy}" target="_blank" rel="noopener">privacy notice</a> and consent to Italienska Skolan Stockholm processing my data for this recruitment.',
+    f3: 'I confirm that my answers are truthful. I understand that the school may ask me for copies of my qualifications and references.',
+    f4: 'You may contact me about future positions in the next 24 months.',
+    submit: 'Submit application',
+    sending: 'Submitting…',
+    remove: '✕ Remove',
+    select: 'Select…', month: 'Month', year: 'Year',
+    words: '{n} / {max} words',
+    confirm1: 'Thank you, we have received your application. We have sent you a confirmation email with a copy of your answers.',
+    confirm2: 'We review applications as they arrive. If your profile matches what we are looking for, we will contact you by Saturday 7 November about the next steps. If you have not heard from us by then, it means we will not be taking your application further on this occasion.',
+    err_required: 'This field is required.',
+    err_email: 'Please check the email address: it looks incomplete.',
+    err_pdf: 'Please upload your CV as a PDF.',
+    err_size: 'The file is larger than 5 MB: please upload a smaller PDF.',
+    err_words: 'Your answer exceeds the maximum number of words.',
+    err_consent: 'We need your confirmation to submit the application.',
+    err_phone: 'Please include the international dialling code (e.g. +39 …).',
+    err_url: 'Please check the link: it looks incomplete.',
+    err_form: 'Some fields need attention: they are highlighted in red.',
+    err_send: 'We could not submit your application. Please try again in a few minutes; if the problem persists, write to careers@italienskaskolan.se.',
+    yes: 'Yes', no: 'No',
+  },
+};
+
+/* Options. `v` is the canonical value stored in the sheet (the Italian spec label) —
+   Code.gs applies the KO / FLAG logic to these exact strings. */
+const OPTS = {
+  b1: [
+    { v: 'Sì', en: 'Yes' },
+    { v: 'Mi laureerò prima di luglio 2027', en: 'I will graduate before July 2027' },
+    { v: 'No', en: 'No' },
+  ],
+  b3: [ { v: 'Sì', en: 'Yes' }, { v: 'Non so', en: "I don't know" }, { v: 'No', en: 'No' } ],
+  b4: [ { v: 'Madrelingua', en: 'Native speaker' }, { v: 'C2' }, { v: 'C1' }, { v: 'B2 o inferiore', en: 'B2 or below' } ],
+  b5: [ { v: 'C2' }, { v: 'C1' }, { v: 'B2' }, { v: 'B1 o inferiore', en: 'B1 or below' } ],
+  b6: [ { v: 'Nessuno', en: 'None' }, { v: 'A1–A2' }, { v: 'B1 o superiore', en: 'B1 or above' }, { v: 'Madrelingua', en: 'Native speaker' } ],
+  b7: [ { v: 'Sì', en: 'Yes' }, { v: 'No', en: 'No' } ],
+  b8: [
+    { v: 'Sì, ho la cittadinanza UE/SEE/svizzera o un permesso svedese con diritto al lavoro',
+      en: 'Yes, I have EU/EEA/Swiss citizenship or a Swedish permit that includes the right to work' },
+    { v: 'No, avrei bisogno di un permesso di lavoro', en: 'No, I would need a work permit' },
+  ],
+  c1: [ { v: 'Nessuno', en: 'None' }, { v: 'Meno di 1', en: 'Less than 1' }, { v: '1–3' }, { v: '4–7' }, { v: '8 o più', en: '8 or more' } ],
+  c3: [ { v: 'Sì', en: 'Yes' }, { v: 'No', en: 'No' } ],
+  f1: [
+    { v: 'LinkedIn' }, { v: 'Indeed' },
+    { v: 'Sito della scuola', en: 'School website' },
+    { v: 'Collega o conoscente', en: 'Colleague or acquaintance' },
+    { v: 'Social media' },
+    { v: 'Altro', en: 'Other' },
+  ],
+  b2_level: [
+    { v: 'Laurea magistrale a ciclo unico', en: "Laurea magistrale a ciclo unico (Italian single-cycle master's degree)" },
+    { v: 'Laurea magistrale', en: "Laurea magistrale (Italian master's degree)" },
+    { v: 'Laurea triennale', en: "Laurea triennale (Italian bachelor's degree)" },
+    { v: "Master's degree" },
+    { v: "Bachelor's degree" },
+    { v: 'Altro', en: 'Other' },
+  ],
+  c2_type: [
+    { v: 'Scuola statale italiana', en: 'Italian state school' },
+    { v: 'Scuola paritaria italiana', en: 'Italian state-recognised private school (paritaria)' },
+    { v: "Scuola italiana all'estero", en: 'Italian school abroad' },
+    { v: 'Scuola internazionale', en: 'International school' },
+    { v: 'Altro', en: 'Other' },
+  ],
+  c2_role: [
+    { v: 'Insegnante di classe', en: 'Class teacher' },
+    { v: 'Sostegno', en: 'Special-needs support teacher (sostegno)' },
+    { v: 'Insegnante di disciplina', en: 'Subject teacher' },
+    { v: 'Supplente', en: 'Supply teacher' },
+  ],
+};
+
+const MONTHS = {
+  it: ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+};
+
+// ISO 3166-1 alpha-2 codes; names come from Intl.DisplayNames in the current language.
+const COUNTRY_CODES = ('AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +
+  'CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR ' +
+  'GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IQ IR IS IT JE JM JO JP ' +
+  'KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS ' +
+  'MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS ' +
+  'RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TG TH TJ TK TL TM TN TO TR TT TV TW TZ ' +
+  'UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW').split(' ');
+const PINNED_COUNTRIES = ['IT', 'SE'];
+
+/* =====================================================================
+   I18N helpers
+   ===================================================================== */
+let LANG = initialLang();
+
+function initialLang() {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'en' || q === 'it') return q;
+  try { const s = sessionStorage.getItem('ftLang'); if (s === 'en' || s === 'it') return s; } catch (e) {}
+  return 'it';
+}
+
+function t(key, vars) {
+  let s = (I18N[LANG] && I18N[LANG][key]) ?? I18N.it[key] ?? key;
+  if (vars) Object.keys(vars).forEach((k) => { s = s.split('{' + k + '}').join(vars[k]); });
+  return s;
+}
+
+function optLabel(o) { return LANG === 'en' ? (o.en || o.v) : (o.it || o.v); }
+
+const regionNamesCache = {};
+function regionName(code, lang) {
+  try {
+    regionNamesCache[lang] = regionNamesCache[lang] || new Intl.DisplayNames([lang], { type: 'region' });
+    return regionNamesCache[lang].of(code) || code;
+  } catch (e) { return code; }
+}
+
+function privacyHref() { return FT_CONFIG.privacyUrl + '?lang=' + LANG; }
+
+function selectItems(kind) {
+  if (kind === 'country') {
+    const rest = COUNTRY_CODES.filter((c) => !PINNED_COUNTRIES.includes(c))
+      .map((c) => ({ v: c, label: regionName(c, LANG) }))
+      .sort((a, b) => a.label.localeCompare(b.label, LANG));
+    return PINNED_COUNTRIES.map((c) => ({ v: c, label: regionName(c, LANG) }))
+      .concat([{ v: '', label: '──────────', disabled: true }], rest);
+  }
+  if (kind === 'month') return MONTHS[LANG].map((m, i) => ({ v: String(i + 1).padStart(2, '0'), label: m }));
+  if (kind === 'gradYear' || kind === 'workYear') {
+    const max = kind === 'gradYear' ? 2030 : new Date().getFullYear() + 1;
+    const out = [];
+    for (let y = max; y >= 1970; y--) out.push({ v: String(y), label: String(y) });
+    return out;
+  }
+  return (OPTS[kind] || []).map((o) => ({ v: o.v, label: optLabel(o) }));
+}
+
+function placeholderFor(kind) {
+  if (kind === 'month') return t('month');
+  if (kind === 'gradYear' || kind === 'workYear') return t('year');
+  return t('select');
+}
+
+function fillSelect(sel) {
+  const kind = sel.dataset.opts;
+  const keep = sel.value;
+  sel.innerHTML = '';
+  const ph = document.createElement('option');
+  ph.value = ''; ph.textContent = placeholderFor(kind);
+  sel.appendChild(ph);
+  selectItems(kind).forEach((it) => {
+    const o = document.createElement('option');
+    o.value = it.v; o.textContent = it.label;
+    if (it.disabled) o.disabled = true;
+    sel.appendChild(o);
+  });
+  sel.value = keep;
+}
+
+function renderRadios() {
+  document.querySelectorAll('[data-radio]').forEach((group) => {
+    const name = group.dataset.radio;
+    if (!group.children.length) {
+      OPTS[name].forEach((o) => {
+        const lab = document.createElement('label');
+        const inp = document.createElement('input');
+        inp.type = 'radio'; inp.name = name; inp.value = o.v;
+        const span = document.createElement('span');
+        lab.appendChild(inp); lab.appendChild(span);
+        group.appendChild(lab);
+      });
+    }
+    group.querySelectorAll('label').forEach((lab, i) => {
+      lab.querySelector('span').textContent = optLabel(OPTS[name][i]);
+    });
+  });
+}
+
+function applyI18n(root) {
+  root = root || document;
+  root.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.dataset.i18n;
+    el.innerHTML = t(key, { privacy: privacyHref() });
+  });
+  root.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+  root.querySelectorAll('select[data-opts]').forEach(fillSelect);
+  if (root === document) {
+    document.documentElement.lang = LANG;
+    document.title = t('pageTitle');
+    renderRadios();
+    document.querySelectorAll('.ft-lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === LANG)));
+    document.querySelectorAll('.ft-error[data-err]').forEach((el) => { if (el.dataset.err) el.textContent = t('err_' + el.dataset.err); });
+    document.querySelectorAll('[data-kind="words"]').forEach(updateCounter);
+    updateFileName();
+  }
+}
+
+function setLang(lang) {
+  LANG = lang;
+  try { sessionStorage.setItem('ftLang', lang); } catch (e) {}
+  const url = new URL(location.href);
+  url.searchParams.set('lang', lang);
+  history.replaceState(null, '', url);
+  applyI18n();
+}
+
+document.querySelectorAll('.ft-lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+/* =====================================================================
+   Field helpers: errors, word counters
+   ===================================================================== */
+function ensureErrorSlot(field) {
+  let el = field.querySelector(':scope > .ft-error');
+  if (!el) { el = document.createElement('div'); el.className = 'ft-error'; field.appendChild(el); }
+  return el;
+}
+
+function setError(field, key) {
+  const el = ensureErrorSlot(field);
+  el.dataset.err = key || '';
+  el.textContent = key ? t('err_' + key) : '';
+  field.classList.toggle('invalid', !!key);
+}
+
+function countWords(s) { return (String(s).match(/\S+/g) || []).length; }
+
+function updateCounter(field) {
+  const ta = field.querySelector('textarea');
+  let wc = field.querySelector(':scope > .ft-wc');
+  if (!wc) {
+    wc = document.createElement('div'); wc.className = 'ft-wc';
+    ta.insertAdjacentElement('afterend', wc);
+  }
+  const max = +field.dataset.max;
+  const n = countWords(ta.value);
+  wc.textContent = t('words', { n, max });
+  wc.classList.toggle('full', n >= max);
+}
+
+// Block typing/pasting beyond the word limit: keep the first `max` words.
+function enforceWordLimit(field) {
+  const ta = field.querySelector('textarea');
+  const max = +field.dataset.max;
+  const v = ta.value;
+  if (countWords(v) <= max) return false;
+  const re = /\S+/g; let m, n = 0, end = 0;
+  while ((m = re.exec(v)) && n < max) { n++; end = m.index + m[0].length; }
+  ta.value = v.slice(0, end);
+  return true;
+}
+
+document.querySelectorAll('[data-kind="words"]').forEach((field) => {
+  updateCounter(field);
+  field.querySelector('textarea').addEventListener('input', () => {
+    const blocked = enforceWordLimit(field);
+    updateCounter(field);
+    if (blocked) setError(field, 'words');
+    else if (field.classList.contains('invalid')) setError(field, checkField(field));
+  });
+});
+
+/* =====================================================================
+   Repeatable blocks (B2 max 3, at least 1 · C2 max 4, optional)
+   ===================================================================== */
+function addBlock(kind) {
+  const container = document.getElementById(kind + '-blocks');
+  const node = document.getElementById('tpl-' + kind).content.firstElementChild.cloneNode(true);
+  container.appendChild(node);
+  applyI18n(node);
+  node.querySelector('[data-remove]').addEventListener('click', () => { node.remove(); refreshBlocks(kind); });
+  if (kind === 'c2') {
+    const cur = node.querySelector('[data-k="current"]');
+    const toSelects = node.querySelector('[data-to-selects]');
+    cur.addEventListener('change', () => {
+      toSelects.hidden = cur.checked;
+      if (cur.checked) toSelects.querySelectorAll('select').forEach((s) => { s.value = ''; });
+      const toField = node.querySelector('[data-to]');
+      if (toField.classList.contains('invalid')) setError(toField, checkField(toField));
+    });
+  }
+  refreshBlocks(kind);
+  return node;
+}
+
+function refreshBlocks(kind) {
+  const blocks = document.querySelectorAll('#' + kind + '-blocks > .ft-block');
+  const max = kind === 'b2' ? FT_CONFIG.maxB2 : FT_CONFIG.maxC2;
+  blocks.forEach((b, i) => {
+    b.querySelector('[data-num]').textContent = i + 1;
+    // B2 needs at least one title: the first block can't be removed.
+    b.querySelector('[data-remove]').hidden = (kind === 'b2' && i === 0);
+  });
+  document.getElementById(kind + '-add').hidden = blocks.length >= max;
+}
+
+document.getElementById('b2-add').addEventListener('click', () => addBlock('b2').querySelector('input').focus());
+document.getElementById('c2-add').addEventListener('click', () => addBlock('c2').querySelector('input').focus());
+
+function blockTouched(block) {
+  if (!block) return false;
+  return Array.from(block.querySelectorAll('input, select')).some((el) =>
+    el.type === 'checkbox' ? el.checked : !!el.value.trim());
+}
+
+/* =====================================================================
+   Conditional fields
+   ===================================================================== */
+function radioValue(name) {
+  const c = document.querySelector('input[name="' + name + '"]:checked');
+  return c ? c.value : '';
+}
+
+document.addEventListener('change', (e) => {
+  if (e.target.name === 'c3') document.getElementById('c3-text-field').hidden = radioValue('c3') !== 'Sì';
+  if (e.target.name === 'f1') document.getElementById('f1-other-field').hidden = radioValue('f1') !== 'Altro';
+});
+
+/* =====================================================================
+   CV file
+   ===================================================================== */
+const cvInput = document.getElementById('c4');
+function isPdfName(file) { return /\.pdf$/i.test(file.name) || file.type === 'application/pdf'; }
+function updateFileName() {
+  const el = document.getElementById('c4-name');
+  const f = cvInput.files[0];
+  if (f) { el.textContent = f.name; el.classList.add('has'); }
+  else { el.textContent = t('c4_none'); el.classList.remove('has'); }
+}
+cvInput.addEventListener('change', () => {
+  updateFileName();
+  const field = cvInput.closest('.ft-field');
+  setError(field, cvInput.files[0] ? checkField(field) : '');
+});
+
+/* =====================================================================
+   Validation
+   ===================================================================== */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+function phoneOk(v) {
+  if (!/^(\+|00)/.test(v)) return false;
+  if (!/^[+\d\s().\-\/]+$/.test(v)) return false;
+  return (v.match(/\d/g) || []).length >= 7;
+}
+function normalizeUrl(v) { return /^https?:\/\//i.test(v) ? v : 'https://' + v; }
+function urlOk(v) {
+  try { const u = new URL(normalizeUrl(v)); return u.hostname.includes('.'); } catch (e) { return false; }
+}
+function isShown(el) { return !el.closest('[hidden]'); }
+
+function checkField(f) {
+  const kind = f.dataset.kind;
+  const req = f.hasAttribute('data-required') ||
+    (f.hasAttribute('data-req-if-touched') && blockTouched(f.closest('.ft-block')));
+
+  if (kind === 'radio') return (req && !f.querySelector('input[type="radio"]:checked')) ? 'required' : '';
+  if (kind === 'consent') return (req && !f.querySelector('input[type="checkbox"]').checked) ? 'consent' : '';
+  if (kind === 'monthyear') {
+    const cur = f.querySelector('[data-k="current"]');
+    if (cur && cur.checked) return '';
+    const [m, y] = f.querySelectorAll('select');
+    if (!m.value && !y.value) return req ? 'required' : '';
+    return (!m.value || !y.value) ? 'required' : '';
+  }
+  if (kind === 'file') {
+    const file = f.querySelector('input[type="file"]').files[0];
+    if (!file) return req ? 'required' : '';
+    if (!isPdfName(file)) return 'pdf';
+    if (file.size > FT_CONFIG.maxCvBytes) return 'size';
+    return '';
+  }
+  const inp = f.querySelector('input, select, textarea');
+  const v = inp.value.trim();
+  if (!v) return req ? 'required' : '';
+  if (kind === 'email' && !EMAIL_RE.test(v)) return 'email';
+  if (kind === 'tel' && !phoneOk(v)) return 'phone';
+  if (kind === 'url' && !urlOk(v)) return 'url';
+  if (kind === 'words' && countWords(v) > +f.dataset.max) return 'words';
+  return '';
+}
+
+function validateAll() {
+  let first = null;
+  document.querySelectorAll('#ft-form .ft-field[data-kind]').forEach((f) => {
+    if (!isShown(f)) { setError(f, ''); return; }
+    const key = checkField(f);
+    setError(f, key);
+    if (key && !first) first = f;
+  });
+  return first;
+}
+
+// Re-check an invalid field as soon as the applicant fixes it.
+document.getElementById('ft-form').addEventListener('input', onFieldEdit);
+document.getElementById('ft-form').addEventListener('change', onFieldEdit);
+function onFieldEdit(e) {
+  const f = e.target.closest('.ft-field[data-kind]');
+  if (f && f.classList.contains('invalid') && f.dataset.kind !== 'words') setError(f, checkField(f));
+}
+
+/* =====================================================================
+   Payload
+   ===================================================================== */
+function val(name) { const el = document.querySelector('#ft-form [name="' + name + '"]'); return el ? el.value.trim() : ''; }
+function checked(name) { return document.querySelector('#ft-form [name="' + name + '"]').checked; }
+function blockVal(b, k) { const el = b.querySelector('[data-k="' + k + '"]'); return el ? el.value.trim() : ''; }
+
+function readB2() {
+  return Array.from(document.querySelectorAll('#b2-blocks > .ft-block')).map((b) => ({
+    title: blockVal(b, 'title'),
+    level: blockVal(b, 'level'),
+    university: blockVal(b, 'university'),
+    faculty: blockVal(b, 'faculty'),
+    countryCode: blockVal(b, 'country'),
+    year: blockVal(b, 'year'),
+    grade: blockVal(b, 'grade'),
+  }));
+}
+
+function readC2() {
+  return Array.from(document.querySelectorAll('#c2-blocks > .ft-block')).filter(blockTouched).map((b) => {
+    const current = b.querySelector('[data-k="current"]').checked;
+    return {
+      school: blockVal(b, 'school'),
+      countryCode: blockVal(b, 'country'),
+      type: blockVal(b, 'type'),
+      role: blockVal(b, 'role'),
+      classes: blockVal(b, 'classes'),
+      from: blockVal(b, 'fromMonth') + '/' + blockVal(b, 'fromYear'),
+      to: current ? 'in corso' : blockVal(b, 'toMonth') + '/' + blockVal(b, 'toYear'),
+    };
+  });
+}
+
+function readFileBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(r.error);
+    r.readAsDataURL(file);
+  });
+}
+
+async function looksLikePdf(file) {
+  try {
+    const head = await new Response(file.slice(0, 5)).text();
+    return head === '%PDF-';
+  } catch (e) { return isPdfName(file); }
+}
+
+// A copy of the answers in the applicant's language, for the confirmation email.
+function plain(key) { const d = document.createElement('div'); d.innerHTML = t(key, { privacy: '' }); return d.textContent; }
+function radioLabel(name) {
+  const v = radioValue(name); const o = (OPTS[name] || []).find((x) => x.v === v);
+  return o ? optLabel(o) : v;
+}
+function optLabelFor(kind, v) { const o = (OPTS[kind] || []).find((x) => x.v === v); return o ? optLabel(o) : v; }
+function monthYearLabel(my) {
+  if (my === 'in corso') return t('c2_current');
+  const [m, y] = my.split('/');
+  return (MONTHS[LANG][(+m) - 1] || m) + ' ' + y;
+}
+
+function buildSummary(b2, c2, cv) {
+  const rows = [];
+  const add = (label, value) => rows.push([label, value || '—']);
+  add(plain('a1'), val('a1')); add(plain('a2'), val('a2')); add(plain('a3'), val('a3'));
+  add(plain('a4'), val('a4')); add(plain('a5'), val('a5')); add(plain('a6'), val('a6'));
+  add(plain('b1'), radioLabel('b1'));
+  b2.forEach((x, i) => add(t('b2_block') + ' ' + (i + 1), [
+    x.title, optLabelFor('b2_level', x.level), x.university, x.faculty,
+    regionName(x.countryCode, LANG), x.year, x.grade,
+  ].filter(Boolean).join(' · ')));
+  add(plain('b3'), radioLabel('b3')); add(plain('b4'), radioLabel('b4'));
+  add(plain('b5'), radioLabel('b5') + (val('b5_cert') ? ' — ' + val('b5_cert') : ''));
+  add(plain('b6'), radioLabel('b6')); add(plain('b7'), radioLabel('b7')); add(plain('b8'), radioLabel('b8'));
+  add(plain('c1'), radioLabel('c1'));
+  c2.forEach((x, i) => add(t('c2_block') + ' ' + (i + 1), [
+    x.school, regionName(x.countryCode, LANG), optLabelFor('c2_type', x.type), optLabelFor('c2_role', x.role),
+    x.classes, monthYearLabel(x.from) + ' – ' + monthYearLabel(x.to),
+  ].filter(Boolean).join(' · ')));
+  add(plain('c3'), radioLabel('c3') + (radioValue('c3') === 'Sì' ? ' — ' + val('c3_text') : ''));
+  add(plain('c4'), cv.name);
+  add(plain('d1'), val('d1')); add(plain('d2'), val('d2'));
+  add(plain('e1'), val('e1')); add(plain('e2'), val('e2'));
+  add(plain('f1'), radioLabel('f1') + (radioValue('f1') === 'Altro' ? ' — ' + val('f1_other') : ''));
+  add(plain('f2'), t('yes')); add(plain('f3'), t('yes'));
+  add(plain('f4'), checked('f4') ? t('yes') : t('no'));
+  return rows;
+}
+
+function srcParam() {
+  const s = (new URLSearchParams(location.search).get('src') || '').trim();
+  return s ? s.slice(0, 100) : 'diretto';
+}
+
+async function buildPayload() {
+  const file = cvInput.files[0];
+  const b2 = readB2(); const c2 = readC2();
+  const withItNames = (x) => Object.assign({}, x, { country: regionName(x.countryCode, 'it') });
+  const a6 = val('a6');
+  return {
+    lang: LANG,
+    src: srcParam(),
+    answers: {
+      a1: val('a1'), a2: val('a2'), a3: val('a3'), a4: val('a4'), a5: val('a5'),
+      a6: a6 ? normalizeUrl(a6) : '',
+      b1: radioValue('b1'), b3: radioValue('b3'), b4: radioValue('b4'),
+      b5: radioValue('b5'), b5_cert: val('b5_cert'), b6: radioValue('b6'),
+      b7: radioValue('b7'), b8: radioValue('b8'),
+      c1: radioValue('c1'), c3: radioValue('c3'), c3_text: radioValue('c3') === 'Sì' ? val('c3_text') : '',
+      d1: val('d1'), d2: val('d2'), e1: val('e1'), e2: val('e2'),
+      f1: radioValue('f1'), f1_other: radioValue('f1') === 'Altro' ? val('f1_other') : '',
+      f2: checked('f2'), f3: checked('f3'), f4: checked('f4'),
+    },
+    b2: b2.map(withItNames),
+    c2: c2.map(withItNames),
+    cv: { name: file.name, size: file.size, data: await readFileBase64(file) },
+    summary: buildSummary(b2, c2, file),
+  };
+}
+
+/* =====================================================================
+   Submit
+   ===================================================================== */
+function setStatus(msg) {
+  const el = document.getElementById('ft-status');
+  el.textContent = msg; el.className = 'ft-form-status' + (msg ? ' err' : '');
+}
+
+function isClosed() { return Date.now() > Date.parse(FT_CONFIG.closesAt); }
+
+function showClosed() {
+  document.getElementById('ft-form').hidden = true;
+  document.getElementById('ft-intro').hidden = true;
+  document.getElementById('ft-closed').hidden = false;
+}
+
+document.getElementById('ft-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  setStatus('');
+  if (isClosed()) { showClosed(); return; }
+
+  const firstInvalid = validateAll();
+  if (!firstInvalid) {
+    const cvField = cvInput.closest('.ft-field');
+    if (!(await looksLikePdf(cvInput.files[0]))) { setError(cvField, 'pdf'); return focusField(cvField); }
+  } else {
+    setStatus(t('err_form'));
+    return focusField(firstInvalid);
+  }
+
+  const btn = document.getElementById('ft-submit');
+  btn.disabled = true;
+  btn.textContent = t('sending');
+
+  try {
+    const payload = await buildPayload();
+
+    if (!FT_CONFIG.appsScriptUrl || FT_CONFIG.appsScriptUrl.startsWith('PASTE_')) {
+      const preview = Object.assign({}, payload, { cv: Object.assign({}, payload.cv, { data: '(' + payload.cv.data.length + ' base64 chars)' }) });
+      console.log('Founding Teacher payload (no backend configured yet):', preview);
+      setStatus('Backend non ancora configurato — payload registrato nella console del browser.');
+      btn.disabled = false; btn.textContent = t('submit');
+      return;
+    }
+
+    const res = await fetch(FT_CONFIG.appsScriptUrl, {
+      method: 'POST',
+      // text/plain avoids a CORS preflight against Apps Script
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (data && data.ok) {
+      document.getElementById('ft-form').hidden = true;
+      document.getElementById('ft-intro').hidden = true;
+      document.getElementById('ft-confirmation').hidden = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (data && data.closed) {
+      showClosed();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error((data && data.error) || 'HTTP ' + res.status);
+    }
+  } catch (err) {
+    console.error(err);
+    setStatus(t('err_send'));
+    btn.disabled = false;
+    btn.textContent = t('submit');
+  }
+});
+
+function focusField(f) {
+  f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const ctl = f.querySelector('input:not([type="file"]), select, textarea');
+  if (ctl) setTimeout(() => ctl.focus({ preventScroll: true }), 300);
+}
+
+/* =====================================================================
+   Init
+   ===================================================================== */
+addBlock('b2');
+addBlock('c2');
+applyI18n();
+if (isClosed()) showClosed();
+</script>
+</body>
+</html>

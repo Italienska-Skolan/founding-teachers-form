@@ -1,0 +1,6 @@
+# Local-only files — kept out of the public GitHub Pages repo
+# Apps Script backend — never publish server code
+*.gs
+CLAUDE.md
+.claude/
+.DS_Store
