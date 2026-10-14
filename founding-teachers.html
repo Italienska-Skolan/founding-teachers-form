@@ -150,7 +150,7 @@
   .ft-radio-group input { margin: 4px 0 0; flex: 0 0 auto; width: 16px; height: 16px; accent-color: var(--isk-blue); }
   .ft-sub { margin-top: 12px; }
 
-  /* Repeatable blocks (B2 titles, C2 positions) */
+  /* Repeatable blocks (B2 titles) */
   .ft-block {
     border: 1px solid var(--isk-border);
     border-left: 4px solid var(--isk-blue);
@@ -161,12 +161,6 @@
   }
   .ft-block-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .ft-block-head h3 { font-family: var(--font-head); font-size: 16px; color: var(--isk-navy); margin: 0; }
-  .ft-monthyear { display: flex; gap: 8px; }
-  .ft-monthyear select:first-child { flex: 1 1 auto; min-width: 0; }
-  .ft-monthyear select:last-child { flex: 0 0 104px; }
-  .ft-inline-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-top: 8px; cursor: pointer; }
-  .ft-inline-check input { accent-color: var(--isk-blue); width: 16px; height: 16px; margin: 0; }
-
   /* File upload */
   .ft-file {
     border: 1px dashed #AFC3E2; border-radius: 10px; background: #fcfdff;
@@ -341,11 +335,6 @@
         <div class="ft-radio-group" data-radio="c1"></div>
       </div>
 
-      <div class="ft-field" id="c2-field">
-        <div class="ft-q"><span data-i18n="c2"></span></div>
-        <div id="c2-blocks"></div>
-        <div><button type="button" class="ft-btn ft-btn-secondary" id="c2-add" data-i18n="c2_add"></button></div>
-      </div>
 
       <div class="ft-field" data-kind="radio" data-required>
         <div class="ft-q"><span data-i18n="c3"></span><span class="req">*</span></div>
@@ -370,11 +359,11 @@
     <!-- ============ PARTE D ============ -->
     <div class="ft-section">
       <h2 data-i18n="secD"></h2>
-      <div class="ft-field" data-kind="words" data-max="60" data-required>
+      <div class="ft-field" data-kind="words" data-max="80" data-required>
         <label for="d1"><span data-i18n="d1"></span><span class="req">*</span></label>
         <textarea id="d1" name="d1"></textarea>
       </div>
-      <div class="ft-field" data-kind="words" data-max="60" data-required>
+      <div class="ft-field" data-kind="words" data-max="80" data-required>
         <label for="d2"><span data-i18n="d2"></span><span class="req">*</span></label>
         <textarea id="d2" name="d2"></textarea>
       </div>
@@ -473,57 +462,6 @@
         <label><span data-i18n="b2_year"></span><span class="req">*</span></label>
         <select data-k="year" data-opts="gradYear"></select>
       </div>
-      <div class="ft-field" data-kind="text">
-        <label><span data-i18n="b2_grade"></span></label>
-        <input type="text" data-k="grade" data-i18n-ph="ph_grade" />
-      </div>
-    </div>
-  </div>
-</template>
-
-<!-- C2: one teaching position (optional block: required fields kick in once anything is filled) -->
-<template id="tpl-c2">
-  <div class="ft-block" data-block="c2">
-    <div class="ft-block-head">
-      <h3><span data-i18n="c2_block"></span> <span data-num></span></h3>
-      <button type="button" class="ft-btn-ghost-danger" data-remove data-i18n="remove"></button>
-    </div>
-    <div class="ft-grid">
-      <div class="ft-field" data-kind="text" data-req-if-touched>
-        <label><span data-i18n="c2_school"></span><span class="req">*</span></label>
-        <input type="text" data-k="school" />
-      </div>
-      <div class="ft-field" data-kind="select" data-req-if-touched>
-        <label><span data-i18n="country"></span><span class="req">*</span></label>
-        <select data-k="country" data-opts="country"></select>
-      </div>
-      <div class="ft-field" data-kind="select" data-req-if-touched>
-        <label><span data-i18n="c2_type"></span><span class="req">*</span></label>
-        <select data-k="type" data-opts="c2_type"></select>
-      </div>
-      <div class="ft-field" data-kind="select" data-req-if-touched>
-        <label><span data-i18n="c2_role"></span><span class="req">*</span></label>
-        <select data-k="role" data-opts="c2_role"></select>
-      </div>
-      <div class="ft-field full" data-kind="text" data-req-if-touched>
-        <label><span data-i18n="c2_classes"></span><span class="req">*</span></label>
-        <input type="text" data-k="classes" data-i18n-ph="ph_classes" />
-      </div>
-      <div class="ft-field" data-kind="monthyear" data-req-if-touched>
-        <label><span data-i18n="c2_from"></span><span class="req">*</span></label>
-        <div class="ft-monthyear">
-          <select data-k="fromMonth" data-opts="month"></select>
-          <select data-k="fromYear" data-opts="workYear"></select>
-        </div>
-      </div>
-      <div class="ft-field" data-kind="monthyear" data-req-if-touched data-to>
-        <label><span data-i18n="c2_to"></span><span class="req">*</span></label>
-        <div class="ft-monthyear" data-to-selects>
-          <select data-k="toMonth" data-opts="month"></select>
-          <select data-k="toYear" data-opts="workYear"></select>
-        </div>
-        <label class="ft-inline-check"><input type="checkbox" data-k="current" /> <span data-i18n="c2_current"></span></label>
-      </div>
     </div>
   </div>
 </template>
@@ -541,7 +479,6 @@ const FT_CONFIG = {
   privacyUrl: 'privacy.html',
   maxCvBytes: 5 * 1024 * 1024,
   maxB2: 3,
-  maxC2: 4,
 };
 
 /* =====================================================================
@@ -550,7 +487,7 @@ const FT_CONFIG = {
 const TEXT = {
   back: '← Torna a italienskaskolan.se',
   title: 'Candidatura – Founding Teacher, docente di scuola primaria',
-  intro: "Per compilare il modulo bastano 15–20 minuti. Tenga pronto il curriculum in italiano in formato PDF. I campi con l'asterisco sono obbligatori.",
+  intro: "Per compilare il modulo occorrono circa 15 minuti. Tenga pronto il curriculum in italiano in formato PDF. I campi con l'asterisco sono obbligatori.",
   deadline: '<strong>Scadenza:</strong> domenica 1 novembre 2026, ore 23:59.',
   closed: "Le candidature per questa selezione sono chiuse. Grazie per l'interesse: le prossime posizioni aperte saranno pubblicate su questa pagina.",
   secA: 'Parte A – Dati personali',
@@ -564,14 +501,13 @@ const TEXT = {
   a5: 'Città e Paese in cui vive attualmente',
   a6: 'Profilo LinkedIn',
   ph_email: 'nome@esempio.com', ph_phone: '+39 …', ph_city: 'Es. Bologna, Italia',
-  ph_cert: 'Es. Cambridge C1 Advanced, 2022', ph_grade: 'Es. 110/110',
+  ph_cert: 'Es. Cambridge C1 Advanced, 2022',
   ph_classes: 'Es. 1ª–3ª',
   b1: "Possiede una laurea che abilita all'insegnamento nella scuola primaria?",
   b2: 'Indichi il suo titolo di studio. Può aggiungerne fino a 3, a partire dal più pertinente.',
   b2_add: '+ Aggiungi un titolo', b2_block: 'Titolo',
   b2_title: 'Denominazione del titolo', b2_level: 'Livello', b2_uni: 'Università',
   b2_fac: 'Facoltà o dipartimento', b2_year: 'Anno di conseguimento o previsto',
-  b2_grade: 'Voto finale (facoltativo)',
   country: 'Paese',
   b3: "Il primo titolo che ha indicato è riconosciuto come abilitazione all'insegnamento nella scuola primaria nel Paese in cui l'ha conseguito?",
   b4: 'Il suo livello di italiano',
@@ -581,16 +517,12 @@ const TEXT = {
   b7: 'Può iniziare a lavorare a tempo pieno a Stoccolma ad agosto 2027?',
   b8: 'Ha il diritto di lavorare in Svezia?',
   c1: 'Anni di esperienza di insegnamento nella scuola primaria (supplenze comprese)',
-  c2: 'I suoi incarichi di insegnamento. Può indicarne fino a 4, a partire dal più recente.',
-  c2_add: '+ Aggiungi un incarico', c2_block: 'Incarico',
-  c2_school: 'Scuola', c2_type: 'Tipo di scuola', c2_role: 'Ruolo', c2_classes: 'Classi',
-  c2_from: 'Dal', c2_to: 'Al', c2_current: 'In corso',
   c3: 'Ha insegnato in un contesto bilingue, CLIL, internazionale o IB?',
   c3_text: 'Lo descriva brevemente',
   c4: 'Carichi il suo curriculum in italiano (PDF, max 2 pagine)',
   c4_choose: 'Scegli il file', c4_none: 'Nessun file selezionato', c4_hint: 'Solo PDF, max 5 MB.',
   d1: "Descriva un'attività in cui le sue alunne e i suoi alunni della scuola primaria hanno usato le tecnologie per creare, esplorare o risolvere un problema: classe, strumenti e che cosa hanno prodotto.",
-  d2: 'Qual è la sua esperienza della scuola primaria italiana e delle Indicazioni Nazionali (insegnamento, tirocinio, formazione)?',
+  d2: "Scelga un traguardo per lo sviluppo delle competenze o un obiettivo di apprendimento delle Indicazioni Nazionali su cui ha lavorato in classe o durante il tirocinio. Lo indichi e descriva in breve come l'ha reso concreto per le alunne e gli alunni.",
   e1: 'Perché desidera entrare nel team fondatore di Italienska Skolan Stockholm?',
   e2: "C'è altro che vorrebbe farci sapere?",
   f1: 'Come ha saputo di questa posizione?',
@@ -601,7 +533,7 @@ const TEXT = {
   submit: 'Invia la candidatura',
   sending: 'Invio in corso…',
   remove: '✕ Rimuovi',
-  select: 'Selezioni…', month: 'Mese', year: 'Anno',
+  select: 'Selezioni…', year: 'Anno',
   words: '{n} / {max} parole',
   confirm1: 'Grazie, abbiamo ricevuto la sua candidatura. Le abbiamo inviato un\'email di conferma con una copia delle risposte.',
   confirm2: 'Esaminiamo le candidature man mano che arrivano. Se il suo profilo corrisponde a quello che cerchiamo, la contatteremo entro sabato 7 novembre per i passi successivi. Se entro quella data non avrà nostre notizie, significa che in questa occasione non proseguiremo con la sua candidatura.',
@@ -652,22 +584,7 @@ const OPTS = {
     { v: "Bachelor's degree" },
     { v: 'Altro' },
   ],
-  c2_type: [
-    { v: 'Scuola statale italiana' },
-    { v: 'Scuola paritaria italiana' },
-    { v: "Scuola italiana all'estero" },
-    { v: 'Scuola internazionale' },
-    { v: 'Altro' },
-  ],
-  c2_role: [
-    { v: 'Insegnante di classe' },
-    { v: 'Sostegno' },
-    { v: 'Insegnante di disciplina' },
-    { v: 'Supplente' },
-  ],
 };
-
-const MONTHS = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
 
 // ISO 3166-1 alpha-2 codes; Italian names come from Intl.DisplayNames.
 const COUNTRY_CODES = ('AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +
@@ -704,9 +621,8 @@ function selectItems(kind) {
     return PINNED_COUNTRIES.map((c) => ({ v: c, label: regionName(c) }))
       .concat([{ v: '', label: '──────────', disabled: true }], rest);
   }
-  if (kind === 'month') return MONTHS.map((m, i) => ({ v: String(i + 1).padStart(2, '0'), label: m }));
-  if (kind === 'gradYear' || kind === 'workYear') {
-    const max = kind === 'gradYear' ? 2030 : new Date().getFullYear() + 1;
+  if (kind === 'gradYear') {
+    const max = 2030;
     const out = [];
     for (let y = max; y >= 1970; y--) out.push({ v: String(y), label: String(y) });
     return out;
@@ -715,8 +631,7 @@ function selectItems(kind) {
 }
 
 function placeholderFor(kind) {
-  if (kind === 'month') return t('month');
-  if (kind === 'gradYear' || kind === 'workYear') return t('year');
+  if (kind === 'gradYear') return t('year');
   return t('select');
 }
 
@@ -824,7 +739,7 @@ document.querySelectorAll('[data-kind="words"]').forEach((field) => {
 });
 
 /* =====================================================================
-   Repeatable blocks (B2 max 3, at least 1 · C2 max 4, optional)
+   Repeatable blocks (B2: max 3, at least 1)
    ===================================================================== */
 function addBlock(kind) {
   const container = document.getElementById(kind + '-blocks');
@@ -832,39 +747,22 @@ function addBlock(kind) {
   container.appendChild(node);
   applyTexts(node);
   node.querySelector('[data-remove]').addEventListener('click', () => { node.remove(); refreshBlocks(kind); });
-  if (kind === 'c2') {
-    const cur = node.querySelector('[data-k="current"]');
-    const toSelects = node.querySelector('[data-to-selects]');
-    cur.addEventListener('change', () => {
-      toSelects.hidden = cur.checked;
-      if (cur.checked) toSelects.querySelectorAll('select').forEach((s) => { s.value = ''; });
-      const toField = node.querySelector('[data-to]');
-      if (toField.classList.contains('invalid')) setError(toField, checkField(toField));
-    });
-  }
   refreshBlocks(kind);
   return node;
 }
 
 function refreshBlocks(kind) {
   const blocks = document.querySelectorAll('#' + kind + '-blocks > .ft-block');
-  const max = kind === 'b2' ? FT_CONFIG.maxB2 : FT_CONFIG.maxC2;
+  const max = FT_CONFIG.maxB2;
   blocks.forEach((b, i) => {
     b.querySelector('[data-num]').textContent = i + 1;
     // B2 needs at least one title: the first block can't be removed.
-    b.querySelector('[data-remove]').hidden = (kind === 'b2' && i === 0);
+    b.querySelector('[data-remove]').hidden = (i === 0);
   });
   document.getElementById(kind + '-add').hidden = blocks.length >= max;
 }
 
 document.getElementById('b2-add').addEventListener('click', () => addBlock('b2').querySelector('input').focus());
-document.getElementById('c2-add').addEventListener('click', () => addBlock('c2').querySelector('input').focus());
-
-function blockTouched(block) {
-  if (!block) return false;
-  return Array.from(block.querySelectorAll('input, select')).some((el) =>
-    el.type === 'checkbox' ? el.checked : !!el.value.trim());
-}
 
 /* =====================================================================
    Conditional fields
@@ -913,18 +811,10 @@ function isShown(el) { return !el.closest('[hidden]'); }
 
 function checkField(f) {
   const kind = f.dataset.kind;
-  const req = f.hasAttribute('data-required') ||
-    (f.hasAttribute('data-req-if-touched') && blockTouched(f.closest('.ft-block')));
+  const req = f.hasAttribute('data-required');
 
   if (kind === 'radio') return (req && !f.querySelector('input[type="radio"]:checked')) ? 'required' : '';
   if (kind === 'consent') return (req && !f.querySelector('input[type="checkbox"]').checked) ? 'consent' : '';
-  if (kind === 'monthyear') {
-    const cur = f.querySelector('[data-k="current"]');
-    if (cur && cur.checked) return '';
-    const [m, y] = f.querySelectorAll('select');
-    if (!m.value && !y.value) return req ? 'required' : '';
-    return (!m.value || !y.value) ? 'required' : '';
-  }
   if (kind === 'file') {
     const file = f.querySelector('input[type="file"]').files[0];
     if (!file) return req ? 'required' : '';
@@ -976,23 +866,7 @@ function readB2() {
     faculty: blockVal(b, 'faculty'),
     countryCode: blockVal(b, 'country'),
     year: blockVal(b, 'year'),
-    grade: blockVal(b, 'grade'),
   }));
-}
-
-function readC2() {
-  return Array.from(document.querySelectorAll('#c2-blocks > .ft-block')).filter(blockTouched).map((b) => {
-    const current = b.querySelector('[data-k="current"]').checked;
-    return {
-      school: blockVal(b, 'school'),
-      countryCode: blockVal(b, 'country'),
-      type: blockVal(b, 'type'),
-      role: blockVal(b, 'role'),
-      classes: blockVal(b, 'classes'),
-      from: blockVal(b, 'fromMonth') + '/' + blockVal(b, 'fromYear'),
-      to: current ? 'in corso' : blockVal(b, 'toMonth') + '/' + blockVal(b, 'toYear'),
-    };
-  });
 }
 
 function readFileBase64(file) {
@@ -1014,13 +888,7 @@ async function looksLikePdf(file) {
 // A copy of the answers, for the confirmation email.
 function plain(key) { const d = document.createElement('div'); d.innerHTML = t(key, { privacy: '' }); return d.textContent; }
 function radioLabel(name) { return radioValue(name); }
-function monthYearLabel(my) {
-  if (my === 'in corso') return t('c2_current');
-  const [m, y] = my.split('/');
-  return (MONTHS[(+m) - 1] || m) + ' ' + y;
-}
-
-function buildSummary(b2, c2, cv) {
+function buildSummary(b2, cv) {
   const rows = [];
   const add = (label, value) => rows.push([label, value || '—']);
   add(plain('a1'), val('a1')); add(plain('a2'), val('a2')); add(plain('a3'), val('a3'));
@@ -1028,16 +896,12 @@ function buildSummary(b2, c2, cv) {
   add(plain('b1'), radioLabel('b1'));
   b2.forEach((x, i) => add(t('b2_block') + ' ' + (i + 1), [
     x.title, x.level, x.university, x.faculty,
-    regionName(x.countryCode), x.year, x.grade,
+    regionName(x.countryCode), x.year,
   ].filter(Boolean).join(' · ')));
   add(plain('b3'), radioLabel('b3')); add(plain('b4'), radioLabel('b4'));
   add(plain('b5'), radioLabel('b5') + (val('b5_cert') ? ' — ' + val('b5_cert') : ''));
   add(plain('b6'), radioLabel('b6')); add(plain('b7'), radioLabel('b7')); add(plain('b8'), radioLabel('b8'));
   add(plain('c1'), radioLabel('c1'));
-  c2.forEach((x, i) => add(t('c2_block') + ' ' + (i + 1), [
-    x.school, regionName(x.countryCode), x.type, x.role,
-    x.classes, monthYearLabel(x.from) + ' – ' + monthYearLabel(x.to),
-  ].filter(Boolean).join(' · ')));
   add(plain('c3'), radioLabel('c3') + (radioValue('c3') === 'Sì' ? ' — ' + val('c3_text') : ''));
   add(plain('c4'), cv.name);
   add(plain('d1'), val('d1')); add(plain('d2'), val('d2'));
@@ -1055,7 +919,7 @@ function srcParam() {
 
 async function buildPayload() {
   const file = cvInput.files[0];
-  const b2 = readB2(); const c2 = readC2();
+  const b2 = readB2();
   const withCountry = (x) => Object.assign({}, x, { country: regionName(x.countryCode) });
   const a6 = val('a6');
   return {
@@ -1072,9 +936,8 @@ async function buildPayload() {
       f2: checked('f2'), f3: checked('f3'), f4: checked('f4'),
     },
     b2: b2.map(withCountry),
-    c2: c2.map(withCountry),
     cv: { name: file.name, size: file.size, data: await readFileBase64(file) },
-    summary: buildSummary(b2, c2, file),
+    summary: buildSummary(b2, file),
   };
 }
 
@@ -1159,7 +1022,6 @@ function focusField(f) {
    Init
    ===================================================================== */
 addBlock('b2');
-addBlock('c2');
 applyTexts();
 if (isClosed()) showClosed();
 </script>

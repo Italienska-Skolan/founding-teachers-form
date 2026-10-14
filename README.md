@@ -43,5 +43,6 @@ After any change to `Code.gs`: Deploy → Manage deployments → ✏️ → **Ne
   to an email.
 - **Emails:** careers@ gets a notification (name, ID, KO/FLAG, link to the row); the applicant
   gets the confirmation from careers@, with a copy of their answers.
-- **Sheet columns:** in the order of the spec; B2 has one column group per title (3 × 7),
-  C2 is one cell with one line per position.
+- **Sheet columns:** in the order of the spec; B2 has one column group per title (3 × 6).
+  C2 (teaching positions) and the B2 final grade were removed from the form; the other question
+  codes are unchanged (C3, C4, …).
