@@ -94,6 +94,21 @@
   }
   .ft-highlight strong { color: var(--isk-navy); }
 
+  /* Job post (before the form) */
+  .ft-post > h2 { line-height: 1.35; }
+  .ft-post p { margin: 0 0 14px; }
+  .ft-post h3 {
+    font-family: var(--font-head); font-weight: 600; font-size: 14px; color: var(--isk-band-ink);
+    text-transform: uppercase; letter-spacing: 0.04em; margin: 24px 0 10px;
+  }
+  .ft-post ul { margin: 0; padding-left: 20px; }
+  .ft-post li { margin-bottom: 8px; }
+  .ft-post li:last-child { margin-bottom: 0; }
+  .ft-post .ft-post-note {
+    margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--isk-border);
+    font-size: 14px; color: var(--isk-muted);
+  }
+
   /* Fields */
   .ft-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
   .ft-field { display: flex; flex-direction: column; margin-bottom: 20px; min-width: 0; }
@@ -235,6 +250,66 @@
   <!-- Closed (after the deadline) -->
   <div class="ft-section" id="ft-closed" hidden>
     <p data-i18n="closed"></p>
+  </div>
+
+  <!-- JOB POST -->
+  <div class="ft-section ft-post" id="ft-post">
+    <h2>Un'occasione per contribuire all'apertura della prima scuola italiana in Svezia.</h2>
+    <p>Italienska Skolan Stockholm, la scuola italiana di Stoccolma, aprirà ad agosto 2027 nel centro della città.
+    Siamo una scuola internazionale che segue il curricolo italiano (Indicazioni Nazionali 2025), con insegnamento
+    in italiano e in svedese e con l'inglese presente fin dalla classe prima. La scuola non prevede rette ed è aperta
+    alle famiglie della comunità italiana e internazionale secondo i criteri previsti dalla legge svedese.</p>
+    <p>Stiamo selezionando i nostri founding teacher: le e i docenti che formeranno il primo corpo docente della
+    scuola. È un'occasione preziosa per iniziare una carriera internazionale costruendo una scuola nuova fin dal
+    primo giorno, invece di inserirsi in una realtà già avviata.</p>
+
+    <h3>Il ruolo</h3>
+    <ul>
+      <li>Insegnare in italiano in una classe dei primi anni della scuola primaria (prima, seconda o terza), in un
+      piccolo team bilingue con colleghe e colleghi di lingua svedese. In base al profilo, l'incarico può comprendere
+      anche l'insegnamento dell'inglese o moduli CLIL.</li>
+      <li>Progettare e insegnare secondo l'approccio TuttoTondo: inquiry-based learning, apprendimento per progetti
+      e materie interdisciplinari TuttoTondo.</li>
+      <li>Usare le tecnologie in modo mirato, perché bambine e bambini le usino per creare, esplorare e ragionare,
+      e non solo per fruire di contenuti pre-costruiti.</li>
+      <li>Contribuire a definire la cultura di una scuola appena fondata, le pratiche di valutazione e il piano per
+      l'apprendimento digitale.</li>
+      <li>Collaborare strettamente con le famiglie, in una comunità varia e multilingue.</li>
+    </ul>
+
+    <h3>Requisiti richiesti</h3>
+    <ul>
+      <li>Una laurea abilitante all'insegnamento nella scuola primaria (in Italia, Scienze della Formazione Primaria)
+      o un titolo equivalente per l'insegnamento nella scuola primaria conseguito in un altro Paese.</li>
+      <li>Italiano madrelingua o di livello C2.</li>
+      <li>Inglese di livello B2 o superiore (un livello C1 o superiore costituisce titolo preferenziale).</li>
+      <li>Una conoscenza solida e pratica della scuola primaria italiana e delle Indicazioni Nazionali.</li>
+      <li>Competenze specifiche nell'uso didattico delle tecnologie nella scuola primaria, ad esempio digital
+      storytelling, tecnologie assistive per l'inclusione o educazione a un uso sicuro e critico degli strumenti
+      digitali.</li>
+    </ul>
+
+    <h3>Costituisce un forte vantaggio</h3>
+    <ul>
+      <li>Esperienza di insegnamento nella scuola primaria, in Italia o all'estero.</li>
+      <li>Esperienza in contesti bilingui, CLIL, internazionali o IB.</li>
+      <li>Esperienza nell'inclusione e con alunni con bisogni educativi speciali.</li>
+      <li>Curiosità per la lingua e la cultura svedese (lo svedese non è richiesto all'inizio).</li>
+    </ul>
+
+    <h3>Che cosa offriamo</h3>
+    <ul>
+      <li>Un ruolo nel team fondatore di una scuola con una visione pedagogica chiara e una direzione ambiziosa e
+      vicina al proprio personale.</li>
+      <li>Una retribuzione competitiva.</li>
+      <li>Sostegno al trasferimento: aiuto per il trasloco, la registrazione e i primi passi a Stoccolma, e
+      orientamento per iniziare il corso gratuito di svedese per stranieri (SFI).</li>
+      <li>Crescita professionale grazie alla progettazione in team, all'osservazione tra pari e alla formazione
+      continua.</li>
+    </ul>
+
+    <p class="ft-post-note">Italienska Skolan Stockholm accoglie le candidature di tutte le persone qualificate,
+    indipendentemente da genere, origine etnica, religione, disabilità, orientamento sessuale o età.</p>
   </div>
 
   <!-- INTRODUCTION -->
@@ -953,6 +1028,7 @@ function isClosed() { return Date.now() > Date.parse(FT_CONFIG.closesAt); }
 function showClosed() {
   document.getElementById('ft-form').hidden = true;
   document.getElementById('ft-intro').hidden = true;
+  document.getElementById('ft-post').hidden = true;
   document.getElementById('ft-closed').hidden = false;
 }
 
@@ -995,6 +1071,7 @@ document.getElementById('ft-form').addEventListener('submit', async (e) => {
     if (data && data.ok) {
       document.getElementById('ft-form').hidden = true;
       document.getElementById('ft-intro').hidden = true;
+      document.getElementById('ft-post').hidden = true;
       document.getElementById('ft-confirmation').hidden = false;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (data && data.closed) {
