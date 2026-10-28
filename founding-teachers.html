@@ -380,10 +380,6 @@
         <div class="ft-q"><span data-i18n="b5"></span><span class="req">*</span></div>
         <div class="ft-radio-group" data-radio="b5"></div>
       </div>
-      <div class="ft-field" data-kind="text">
-        <label for="b5_cert"><span data-i18n="b5_cert"></span></label>
-        <input type="text" id="b5_cert" name="b5_cert" data-i18n-ph="ph_cert" />
-      </div>
 
       <div class="ft-field" data-kind="radio" data-required>
         <div class="ft-q"><span data-i18n="b6"></span><span class="req">*</span></div>
@@ -576,8 +572,6 @@ const TEXT = {
   a5: 'Città e Paese in cui vive attualmente',
   a6: 'Profilo LinkedIn',
   ph_email: 'nome@esempio.com', ph_phone: '+39 …', ph_city: 'Es. Bologna, Italia',
-  ph_cert: 'Es. Cambridge C1 Advanced, 2022',
-  ph_classes: 'Es. 1ª–3ª',
   b1: "Possiede una laurea che abilita all'insegnamento nella scuola primaria?",
   b2: 'Indichi il suo titolo di studio. Può aggiungerne fino a 3, a partire dal più pertinente.',
   b2_add: '+ Aggiungi un titolo', b2_block: 'Titolo',
@@ -587,7 +581,6 @@ const TEXT = {
   b3: "Il primo titolo che ha indicato è riconosciuto come abilitazione all'insegnamento nella scuola primaria nel Paese in cui l'ha conseguito?",
   b4: 'Il suo livello di italiano',
   b5: 'Il suo livello di inglese (QCER)',
-  b5_cert: 'Certificazione (nome e anno)',
   b6: 'Il suo livello di svedese',
   b7: 'Può iniziare a lavorare a tempo pieno a Stoccolma ad agosto 2027?',
   b8: 'Ha il diritto di lavorare in Svezia?',
@@ -974,7 +967,7 @@ function buildSummary(b2, cv) {
     regionName(x.countryCode), x.year,
   ].filter(Boolean).join(' · ')));
   add(plain('b3'), radioLabel('b3')); add(plain('b4'), radioLabel('b4'));
-  add(plain('b5'), radioLabel('b5') + (val('b5_cert') ? ' — ' + val('b5_cert') : ''));
+  add(plain('b5'), radioLabel('b5'));
   add(plain('b6'), radioLabel('b6')); add(plain('b7'), radioLabel('b7')); add(plain('b8'), radioLabel('b8'));
   add(plain('c1'), radioLabel('c1'));
   add(plain('c3'), radioLabel('c3') + (radioValue('c3') === 'Sì' ? ' — ' + val('c3_text') : ''));
@@ -1003,7 +996,7 @@ async function buildPayload() {
       a1: val('a1'), a2: val('a2'), a3: val('a3'), a4: val('a4'), a5: val('a5'),
       a6: a6 ? normalizeUrl(a6) : '',
       b1: radioValue('b1'), b3: radioValue('b3'), b4: radioValue('b4'),
-      b5: radioValue('b5'), b5_cert: val('b5_cert'), b6: radioValue('b6'),
+      b5: radioValue('b5'), b6: radioValue('b6'),
       b7: radioValue('b7'), b8: radioValue('b8'),
       c1: radioValue('c1'), c3: radioValue('c3'), c3_text: radioValue('c3') === 'Sì' ? val('c3_text') : '',
       d1: val('d1'), d2: val('d2'), e1: val('e1'), e2: val('e2'),
