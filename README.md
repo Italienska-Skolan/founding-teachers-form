@@ -46,3 +46,22 @@ After any change to `Code.gs`: Deploy → Manage deployments → ✏️ → **Ne
 - **Sheet columns:** in the order of the spec; B2 has one column group per title (3 × 6).
   C2 (teaching positions) and the B2 final grade were removed from the form; the other question
   codes are unchanged (C3, C4, …).
+
+## Second form: Leg. Grundskollärare F–3 (Swedish)
+
+Same design and architecture, in Swedish, with its **own** Apps Script project, Sheet, CV folder
+and ID counter (`GL27-001`, …). Deadline: Sunday 6 December 2026, 23:59 (CET).
+
+| File | Purpose |
+|------|---------|
+| `grundskollarare-f3.html` | The form, with the job ad on top. |
+| `integritetspolicy.html` | Privacy notice in Swedish, linked from F2. |
+| `Code-grundskollarare.gs` | Its Apps Script backend (git-ignored, like `Code.gs`). |
+
+Setup is the same as for the Italian form: new Google Sheet from the careers@ account →
+Extensions → Apps Script → paste `Code-grundskollarare.gs` → run `setup()` → Deploy as Web app →
+paste the `/exec` URL into `FT_CONFIG.appsScriptUrl` in `grundskollarare-f3.html`.
+The KO/FLAG rules in `computeLabels_()` are a proposal (the draft had none) — see the comment there.
+
+`wix-posizioni-aperte.html` (local only, pasted into the Wix "Lavora con noi" page) lists both
+positions; each card moves from "Posizioni aperte" to "Candidature chiuse" at its own deadline.
