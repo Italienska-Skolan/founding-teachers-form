@@ -63,5 +63,11 @@ Extensions → Apps Script → paste `Code-grundskollarare.gs` → run `setup()`
 paste the `/exec` URL into `FT_CONFIG.appsScriptUrl` in `grundskollarare-f3.html`.
 The KO/FLAG rules in `computeLabels_()` are a proposal (the draft had none) — see the comment there.
 
+**C4 Lärarlegitimation:** shown and required only when B4 = "Ja" (PDF, max 5 MB, checked in the
+browser and on the server). Saved in the same Drive folder as
+`GL27-001 – Efternamn Förnamn – Lärarlegitimation.pdf`, linked from the *C4 Lärarlegitimation*
+column (right after *C3 CV*). On a Sheet that already has rows, run `addLegitimationColumn()` once
+before deploying the new version, so the existing rows stay aligned.
+
 `wix-posizioni-aperte.html` (local only, pasted into the Wix "Lavora con noi" page) lists both
 positions; each card moves from "Posizioni aperte" to "Candidature chiuse" at its own deadline.

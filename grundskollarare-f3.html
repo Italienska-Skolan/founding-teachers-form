@@ -475,6 +475,18 @@
         </div>
         <div class="hint" data-i18n="c3_hint"></div>
       </div>
+
+      <!-- C4: shown (and required) only when B4 = "Ja" -->
+      <div class="ft-field" data-kind="file" data-required id="c4-field" hidden>
+        <div class="ft-q"><span data-i18n="c4"></span><span class="req">*</span></div>
+        <div class="hint" data-i18n="c4_desc"></div>
+        <div class="ft-file">
+          <input type="file" id="c4" name="c4" accept="application/pdf,.pdf" />
+          <label for="c4" class="ft-btn ft-btn-secondary" style="margin:0" data-i18n="c3_choose"></label>
+          <span class="ft-file-name" id="c4-name" data-i18n="c3_none"></span>
+        </div>
+        <div class="hint" data-i18n="c3_hint"></div>
+      </div>
     </div>
 
     <!-- ============ DEL D ============ -->
@@ -608,12 +620,12 @@ const FT_CONFIG = {
 const TEXT = {
   back: '← Tillbaka till italienskaskolan.se',
   title: 'Ansökan – Founding Teacher, legitimerad grundskollärare F–3',
-  intro: 'För att fylla i formuläret behöver du ladda upp ditt CV på svenska i PDF-format. Fält markerade med stjärna (*) är obligatoriska.',
+  intro: 'För att fylla i formuläret behöver du ditt CV på svenska och, om du har en, din lärarlegitimation, båda i PDF-format. Fält markerade med stjärna (*) är obligatoriska.',
   deadline: '<strong>Sista ansökningsdag:</strong> söndag 6 december 2026, kl. 23:59 (CET).',
   closed: 'Ansökningstiden för den här tjänsten har gått ut. Tack för ditt intresse: kommande lediga tjänster publiceras på den här sidan.',
   secA: 'Del A – Personuppgifter',
   secB: 'Del B – Krav',
-  secC: 'Del C – Undervisningserfarenhet och CV',
+  secC: 'Del C – Undervisningserfarenhet, CV och lärarlegitimation',
   secD: 'Del D – Kompetenser',
   secE: 'Del E – Motivation',
   secF: 'Del F – Samtycke och inskickning',
@@ -637,6 +649,8 @@ const TEXT = {
   c2: 'Har du undervisat i en tvåspråkig, internationell eller IB-miljö?',
   c3: 'Ladda upp ditt CV på svenska (PDF, max 2 sidor)',
   c3_choose: 'Välj fil', c3_none: 'Ingen fil har valts', c3_hint: 'Endast PDF, max 5 MB.',
+  c4: 'Ladda upp din lärarlegitimation (PDF)',
+  c4_desc: 'Ladda upp en kopia av hela din lärarlegitimation från Skolverket, där dina behörigheter (ämnen och årskurser) framgår.',
   d1: 'Tänk på en elev i åk 3 som precis har börjat lära sig svenska. Beskriv hur du skulle stödja elevens språkutveckling under de första veckorna och hur du skulle märka att stödet fungerar.',
   d2: 'Undervisningen i svenska och italienska sker parallellt, i mycket nära samarbete med en italiensk kollega. Beskriv hur ni skulle planera ett gemensamt tema för åk 1: vad gör ni var för sig i klassrummet och vad gör ni tillsammans i ett planeringsskede?',
   e1: 'Varför vill du bli en del av det grundande lärarteamet på Italienska Skolan Stockholm?',
@@ -656,6 +670,7 @@ const TEXT = {
   err_required: 'Det här fältet är obligatoriskt.',
   err_email: 'Kontrollera e-postadressen: den verkar vara ofullständig.',
   err_pdf: 'Ladda upp ditt CV i PDF-format.',
+  err_pdf_c4: 'Ladda upp din lärarlegitimation i PDF-format.',
   err_size: 'Filen är större än 5 MB: ladda upp en mindre PDF.',
   err_words: 'Svaret överskrider det maximala antalet ord.',
   err_consent: 'Vi behöver ditt godkännande för att kunna skicka ansökan.',
@@ -889,24 +904,34 @@ function radioValue(name) {
 
 document.addEventListener('change', (e) => {
   if (e.target.name === 'f1') document.getElementById('f1-other-field').hidden = radioValue('f1') !== 'Annat';
+  if (e.target.name === 'b4') {
+    const show = radioValue('b4') === 'Ja';
+    const field = document.getElementById('c4-field');
+    field.hidden = !show;
+    if (!show) { legInput.value = ''; updateFileName(); setError(field, ''); }
+  }
 });
 
 /* =====================================================================
-   CV file
+   PDF files: CV (C3) and lärarlegitimation (C4, only when B4 = "Ja")
    ===================================================================== */
 const cvInput = document.getElementById('c3');
+const legInput = document.getElementById('c4');
 function isPdfName(file) { return /\.pdf$/i.test(file.name) || file.type === 'application/pdf'; }
+function needsLegitimation() { return radioValue('b4') === 'Ja'; }
 function updateFileName() {
-  const el = document.getElementById('c3-name');
-  const f = cvInput.files[0];
-  if (f) { el.textContent = f.name; el.classList.add('has'); }
-  else { el.textContent = t('c3_none'); el.classList.remove('has'); }
+  [cvInput, legInput].forEach((inp) => {
+    const el = document.getElementById(inp.id + '-name');
+    const f = inp.files[0];
+    if (f) { el.textContent = f.name; el.classList.add('has'); }
+    else { el.textContent = t('c3_none'); el.classList.remove('has'); }
+  });
 }
-cvInput.addEventListener('change', () => {
+[cvInput, legInput].forEach((inp) => inp.addEventListener('change', () => {
   updateFileName();
-  const field = cvInput.closest('.ft-field');
-  setError(field, cvInput.files[0] ? checkField(field) : '');
-});
+  const field = inp.closest('.ft-field');
+  setError(field, inp.files[0] ? checkField(field) : '');
+}));
 
 /* =====================================================================
    Validation
@@ -930,9 +955,10 @@ function checkField(f) {
   if (kind === 'radio') return (req && !f.querySelector('input[type="radio"]:checked')) ? 'required' : '';
   if (kind === 'consent') return (req && !f.querySelector('input[type="checkbox"]').checked) ? 'consent' : '';
   if (kind === 'file') {
-    const file = f.querySelector('input[type="file"]').files[0];
+    const inp = f.querySelector('input[type="file"]');
+    const file = inp.files[0];
     if (!file) return req ? 'required' : '';
-    if (!isPdfName(file)) return 'pdf';
+    if (!isPdfName(file)) return inp.id === 'c4' ? 'pdf_c4' : 'pdf';
     if (file.size > FT_CONFIG.maxCvBytes) return 'size';
     return '';
   }
@@ -1002,7 +1028,7 @@ async function looksLikePdf(file) {
 // A copy of the answers, for the confirmation email.
 function plain(key) { const d = document.createElement('div'); d.innerHTML = t(key, { privacy: '' }); return d.textContent; }
 function radioLabel(name) { return radioValue(name); }
-function buildSummary(b2, cv) {
+function buildSummary(b2, cv, leg) {
   const rows = [];
   const add = (label, value) => rows.push([label, value || '—']);
   add(plain('a1'), val('a1')); add(plain('a2'), val('a2')); add(plain('a3'), val('a3'));
@@ -1016,6 +1042,7 @@ function buildSummary(b2, cv) {
   add(plain('b5'), radioLabel('b5')); add(plain('b6'), radioLabel('b6')); add(plain('b7'), radioLabel('b7'));
   add(plain('c1'), radioLabel('c1')); add(plain('c2'), radioLabel('c2'));
   add(plain('c3'), cv.name);
+  if (leg) add(plain('c4'), leg.name);
   add(plain('d1'), val('d1')); add(plain('d2'), val('d2'));
   add(plain('e1'), val('e1')); add(plain('e2'), val('e2'));
   add(plain('f1'), radioLabel('f1') + (radioValue('f1') === 'Annat' ? ' — ' + val('f1_other') : ''));
@@ -1031,6 +1058,7 @@ function srcParam() {
 
 async function buildPayload() {
   const file = cvInput.files[0];
+  const leg = needsLegitimation() ? legInput.files[0] : null;
   const b2 = readB2();
   const withCountry = (x) => Object.assign({}, x, { country: regionName(x.countryCode) });
   const a6 = val('a6');
@@ -1048,7 +1076,8 @@ async function buildPayload() {
     },
     b2: b2.map(withCountry),
     cv: { name: file.name, size: file.size, data: await readFileBase64(file) },
-    summary: buildSummary(b2, file),
+    legitimation: leg ? { name: leg.name, size: leg.size, data: await readFileBase64(leg) } : null,
+    summary: buildSummary(b2, file, leg),
   };
 }
 
@@ -1078,6 +1107,10 @@ document.getElementById('ft-form').addEventListener('submit', async (e) => {
   if (!firstInvalid) {
     const cvField = cvInput.closest('.ft-field');
     if (!(await looksLikePdf(cvInput.files[0]))) { setError(cvField, 'pdf'); return focusField(cvField); }
+    if (needsLegitimation()) {
+      const legField = legInput.closest('.ft-field');
+      if (!(await looksLikePdf(legInput.files[0]))) { setError(legField, 'pdf_c4'); return focusField(legField); }
+    }
   } else {
     setStatus(t('err_form'));
     return focusField(firstInvalid);
@@ -1091,7 +1124,8 @@ document.getElementById('ft-form').addEventListener('submit', async (e) => {
     const payload = await buildPayload();
 
     if (!FT_CONFIG.appsScriptUrl || FT_CONFIG.appsScriptUrl.startsWith('PASTE_')) {
-      const preview = Object.assign({}, payload, { cv: Object.assign({}, payload.cv, { data: '(' + payload.cv.data.length + ' base64 chars)' }) });
+      const short = (f) => f && Object.assign({}, f, { data: '(' + f.data.length + ' base64 chars)' });
+      const preview = Object.assign({}, payload, { cv: short(payload.cv), legitimation: short(payload.legitimation) });
       console.log('Grundskollärare F–3 payload (no backend configured yet):', preview);
       setStatus('Backend ej konfigurerad ännu — formulärdata loggad i webbläsarens konsol.');
       btn.disabled = false; btn.textContent = t('submit');
